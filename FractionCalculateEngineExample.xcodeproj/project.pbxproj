@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		274A07D61E557E2200576D4C /* Fraction.m in Sources */ = {isa = PBXBuildFile; fileRef = 274A07D51E557E2200576D4C /* Fraction.m */; };
 		27FD57071E52FA8900A2B872 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FD57061E52FA8900A2B872 /* main.m */; };
 		27FD570A1E52FA8900A2B872 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FD57091E52FA8900A2B872 /* AppDelegate.m */; };
 		27FD570D1E52FA8900A2B872 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FD570C1E52FA8900A2B872 /* ViewController.m */; };
@@ -33,7 +34,6 @@
 		27FD576D1E52FAB800A2B872 /* FractionTokenInterpreter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FD57531E52FAB800A2B872 /* FractionTokenInterpreter.m */; };
 		27FD576E1E52FAB800A2B872 /* FractionTokenizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FD57551E52FAB800A2B872 /* FractionTokenizer.m */; };
 		27FD576F1E52FAB800A2B872 /* Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FD57571E52FAB800A2B872 /* Parser.m */; };
-		27FD57721E52FAB800A2B872 /* Fraction.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FD575E1E52FAB800A2B872 /* Fraction.m */; };
 		27FD57741E53023200A2B872 /* NullSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FD57731E53023200A2B872 /* NullSafe.m */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +48,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		274A07D41E557E2200576D4C /* Fraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fraction.h; sourceTree = "<group>"; };
+		274A07D51E557E2200576D4C /* Fraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Fraction.m; sourceTree = "<group>"; };
 		27FD57021E52FA8900A2B872 /* FractionCalculateEngineExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FractionCalculateEngineExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27FD57061E52FA8900A2B872 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		27FD57081E52FA8900A2B872 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -101,8 +103,6 @@
 		27FD57551E52FAB800A2B872 /* FractionTokenizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FractionTokenizer.m; path = FractionParser/FractionTokenizer.m; sourceTree = "<group>"; };
 		27FD57561E52FAB800A2B872 /* Parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Parser.h; path = FractionParser/Parser.h; sourceTree = "<group>"; };
 		27FD57571E52FAB800A2B872 /* Parser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Parser.m; path = FractionParser/Parser.m; sourceTree = "<group>"; };
-		27FD575D1E52FAB800A2B872 /* Fraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fraction.h; sourceTree = "<group>"; };
-		27FD575E1E52FAB800A2B872 /* Fraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Fraction.m; sourceTree = "<group>"; };
 		27FD57731E53023200A2B872 /* NullSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NullSafe.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -160,6 +160,17 @@
 				27FD57761E53054D00A2B872 /* Element */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		274A07D31E557E2200576D4C /* Fraction */ = {
+			isa = PBXGroup;
+			children = (
+				27FD57331E52FAB800A2B872 /* ExtendMethod.h */,
+				27FD57341E52FAB800A2B872 /* ExtendMethod.m */,
+				274A07D41E557E2200576D4C /* Fraction.h */,
+				274A07D51E557E2200576D4C /* Fraction.m */,
+			);
+			path = Fraction;
 			sourceTree = "<group>";
 		};
 		27FD56F91E52FA8900A2B872 = {
@@ -222,6 +233,7 @@
 		27FD57301E52FAB800A2B872 /* FractionCalculateEngine */ = {
 			isa = PBXGroup;
 			children = (
+				274A07D31E557E2200576D4C /* Fraction */,
 				274A07D21E557C6500576D4C /* Model */,
 				274A07CF1E55772C00576D4C /* Tokenizer */,
 				27FD577F1E5494D300A2B872 /* Interpreter */,
@@ -230,7 +242,6 @@
 				27FD577C1E533DB400A2B872 /* Evaluator */,
 				27FD57321E52FAB800A2B872 /* Extend */,
 				27FD57351E52FAB800A2B872 /* Engine */,
-				27FD575A1E52FAB800A2B872 /* Fraction */,
 			);
 			path = FractionCalculateEngine;
 			sourceTree = "<group>";
@@ -253,18 +264,6 @@
 			);
 			name = Engine;
 			path = FractionParser;
-			sourceTree = "<group>";
-		};
-		27FD575A1E52FAB800A2B872 /* Fraction */ = {
-			isa = PBXGroup;
-			children = (
-				27FD57331E52FAB800A2B872 /* ExtendMethod.h */,
-				27FD57341E52FAB800A2B872 /* ExtendMethod.m */,
-				27FD575D1E52FAB800A2B872 /* Fraction.h */,
-				27FD575E1E52FAB800A2B872 /* Fraction.m */,
-			);
-			name = Fraction;
-			path = SQSFraction;
 			sourceTree = "<group>";
 		};
 		27FD57761E53054D00A2B872 /* Element */ = {
@@ -446,6 +445,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27FD57671E52FAB800A2B872 /* NSString+FractionCalculateEngine.m in Sources */,
+				274A07D61E557E2200576D4C /* Fraction.m in Sources */,
 				27FD570D1E52FA8900A2B872 /* ViewController.m in Sources */,
 				27FD57611E52FAB800A2B872 /* FunctionElement.m in Sources */,
 				27FD57601E52FAB800A2B872 /* FunctionDispatcher.m in Sources */,
@@ -459,7 +459,6 @@
 				27FD57641E52FAB800A2B872 /* ParserAtom.m in Sources */,
 				27FD57681E52FAB800A2B872 /* FractionEvaluator.m in Sources */,
 				27FD575F1E52FAB800A2B872 /* ExtendMethod.m in Sources */,
-				27FD57721E52FAB800A2B872 /* Fraction.m in Sources */,
 				27FD576D1E52FAB800A2B872 /* FractionTokenInterpreter.m in Sources */,
 				27FD57071E52FA8900A2B872 /* main.m in Sources */,
 				27FD576A1E52FAB800A2B872 /* FractionOperatorSet.m in Sources */,
