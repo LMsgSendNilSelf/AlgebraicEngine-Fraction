@@ -173,6 +173,18 @@
 			path = Fraction;
 			sourceTree = "<group>";
 		};
+		2786F75A1E56F3B40093C30F /* process */ = {
+			isa = PBXGroup;
+			children = (
+				274A07CF1E55772C00576D4C /* Tokenizer */,
+				27FD577F1E5494D300A2B872 /* Interpreter */,
+				27FD57801E54950200A2B872 /* Parser */,
+				274A07D11E55797100576D4C /* Resolver */,
+				27FD577C1E533DB400A2B872 /* Evaluator */,
+			);
+			name = process;
+			sourceTree = "<group>";
+		};
 		27FD56F91E52FA8900A2B872 = {
 			isa = PBXGroup;
 			children = (
@@ -233,13 +245,9 @@
 		27FD57301E52FAB800A2B872 /* FractionCalculateEngine */ = {
 			isa = PBXGroup;
 			children = (
-				274A07D31E557E2200576D4C /* Fraction */,
 				274A07D21E557C6500576D4C /* Model */,
-				274A07CF1E55772C00576D4C /* Tokenizer */,
-				27FD577F1E5494D300A2B872 /* Interpreter */,
-				27FD57801E54950200A2B872 /* Parser */,
-				274A07D11E55797100576D4C /* Resolver */,
-				27FD577C1E533DB400A2B872 /* Evaluator */,
+				2786F75A1E56F3B40093C30F /* process */,
+				274A07D31E557E2200576D4C /* Fraction */,
 				27FD57321E52FAB800A2B872 /* Extend */,
 				27FD57351E52FAB800A2B872 /* Engine */,
 			);

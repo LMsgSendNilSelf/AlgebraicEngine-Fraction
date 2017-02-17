@@ -147,12 +147,9 @@ static NSString* const kKeyIsNegative  = @"isNegative";
 
 - (NSString *)description{
     
-    long long numerator = (long long)[self numerator];
+    NSString *symbol = [self isNegative]?@"-":@"+";
     
-    if([self isNegative]){
-        numerator *= -1;
-    }
-    return [NSString stringWithFormat:@"(%ld / %lu)", (long)numerator, (unsigned long)[self denominator]];
+    return [NSString stringWithFormat:@"(%@%llu/%llu)",symbol, [self numerator], [self denominator]];
 }
 
 #pragma mark NSCopying
@@ -171,17 +168,11 @@ static NSString* const kKeyIsNegative  = @"isNegative";
     unsigned long long numerator;
     unsigned long long denominator;
     BOOL isNegative;
-    
-    if([aDecoder allowsKeyedCoding]){
-        numerator   = [[aDecoder decodeObjectForKey:kKeyNumerator] unsignedIntegerValue];
-        denominator = [[aDecoder decodeObjectForKey:kKeyDenominator] unsignedIntegerValue];
-        isNegative  = [aDecoder decodeBoolForKey:kKeyIsNegative];
-    }
-    else{
-        numerator = [[aDecoder decodeObject] unsignedIntegerValue];
-        denominator = [[aDecoder decodeObject] unsignedIntegerValue];
-        isNegative = [[aDecoder decodeObject] unsignedIntegerValue];
-    }
+
+    numerator   = [[aDecoder decodeObjectForKey:kKeyNumerator] unsignedIntegerValue];
+    denominator = [[aDecoder decodeObjectForKey:kKeyDenominator] unsignedIntegerValue];
+    isNegative  = [aDecoder decodeBoolForKey:kKeyIsNegative];
+   
     return [self initWithNumerator:numerator
                        denominator:denominator
                           negative:isNegative];
@@ -189,15 +180,9 @@ static NSString* const kKeyIsNegative  = @"isNegative";
 
 - (void)encodeWithCoder:(NSCoder *)aCoder{
     
-    if([aCoder allowsKeyedCoding]){
-        [aCoder encodeObject:[NSNumber numberWithUnsignedInteger:[self numerator]] forKey:kKeyNumerator];
-        [aCoder encodeObject:[NSNumber numberWithUnsignedInteger:[self denominator]] forKey:kKeyDenominator];
-        [aCoder encodeBool:[self isNegative] forKey:kKeyIsNegative];
-    }else{
-        [aCoder encodeObject:[NSNumber numberWithUnsignedLongLong:[self numerator]]];
-        [aCoder encodeObject:[NSNumber numberWithUnsignedLongLong:[self denominator]]];
-        [aCoder encodeObject:[NSNumber numberWithBool:[self isNegative]]];
-    }
+    [aCoder encodeObject:[NSNumber numberWithUnsignedInteger:self.numerator] forKey:kKeyNumerator];
+    [aCoder encodeObject:[NSNumber numberWithUnsignedInteger:self.denominator] forKey:kKeyDenominator];
+    [aCoder encodeBool:[self isNegative] forKey:kKeyIsNegative];
 }
 
 @end
