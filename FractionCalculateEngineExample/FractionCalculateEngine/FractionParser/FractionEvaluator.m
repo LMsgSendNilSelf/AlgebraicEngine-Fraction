@@ -26,7 +26,7 @@ typedef ExpressionElement* (^FunctionElementBlock)(NSArray *, FractionEvaluator 
     FunctionDispatcher *_functionEvaluator;
 }
 
-+ (instancetype)defaultFractionEvaluator{
++ (instancetype)defaultFractionEvaluator {
     static FractionEvaluator * _defaultEvaluator = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -35,15 +35,15 @@ typedef ExpressionElement* (^FunctionElementBlock)(NSArray *, FractionEvaluator 
 	return _defaultEvaluator;
 }
 
-- (id)init{
+- (id)init {
 	
-	if(self = [super init]){
+	if  (self = [super init]) {
         _functionTable = [NSMutableDictionary mutableCopy];
         _functionEvaluator = [[FunctionDispatcher alloc] initWithFractionEvaluator:self];
         _operatorsSet = [FractionOperatorSet preLoadOperatorSet];
         
         NSDictionary *aliases = [self aliases];
-        for(NSString *alias in aliases){
+        for(NSString *alias in aliases) {
             @autoreleasepool {
                 
                 NSString *function = aliases[alias];
@@ -60,22 +60,22 @@ typedef ExpressionElement* (^FunctionElementBlock)(NSArray *, FractionEvaluator 
     
     FractionTokenizer *tokenizer = [[FractionTokenizer alloc] initWithString:exp operatorsSet:self.operatorsSet error:error];
     
-    if(!tokenizer){
+    if  (!tokenizer) {
         return nil;
     }
     
     FractionTokenInterpreter *interpreter = [[FractionTokenInterpreter alloc] initWithTokenizer:tokenizer error:error];
-    if(!interpreter){
+    if  (!interpreter) {
         return nil;
     }
     
     Parser *parser = [[Parser alloc] initWithTokenInterpreter:interpreter];
-    if(!parser){
+    if  (!parser) {
         return nil;
     }
     
     ExpressionElement *expression = [parser parsedExpressionWithError:error];
-    if(!expression){
+    if  (!expression) {
         return nil;
     }
     
@@ -86,7 +86,7 @@ typedef ExpressionElement* (^FunctionElementBlock)(NSArray *, FractionEvaluator 
     
     ExpressionElementType type = [exp expressionType];
     
-    switch (type){
+    switch (type) {
         case ExpressionTypeNumber:
             return [exp fractionNumber];
             
@@ -103,14 +103,14 @@ typedef ExpressionElement* (^FunctionElementBlock)(NSArray *, FractionEvaluator 
     
     id result = [_functionEvaluator evaluateFunction:funExp error:error];
     
-    if(!result){
+    if  (!result) {
         
         return nil;
     }
     
     Fraction*fracValue = [self evaluateValue:result error:error];
     
-    if(!fracValue && error && *error == nil){
+    if  (!fracValue && error && *error == nil) {
         *error = Math_Error(ErrorCodeFunctionReturnTypeNil, @"return nil from %@", [funExp function]);
     }
     
@@ -119,15 +119,15 @@ typedef ExpressionElement* (^FunctionElementBlock)(NSArray *, FractionEvaluator 
 
 - (id)evaluateValue:(id)value error:(NSError **)error {
     
-    if([value isKindOfClass:[ExpressionElement class]]){
+    if  ([value isKindOfClass:[ExpressionElement class]]) {
         
         return [self evaluateExpression:value error:error];
         
-    }else if([value isKindOfClass:[NSString class]]){
+    }else if  ([value isKindOfClass:[NSString class]]) {
         
         return [self evaluateString:value error:error];
         
-    }else if([value isKindOfClass:[Fraction class]]){
+    }else if  ([value isKindOfClass:[Fraction class]]) {
         
         return value;
     }
@@ -138,7 +138,7 @@ typedef ExpressionElement* (^FunctionElementBlock)(NSArray *, FractionEvaluator 
 
 #pragma mark - Aliases
 
-- (NSDictionary *)aliases{
+- (NSDictionary *)aliases {
     
     static dispatch_once_t onceToken;
     static NSDictionary *aliases = nil;
@@ -152,19 +152,19 @@ typedef ExpressionElement* (^FunctionElementBlock)(NSArray *, FractionEvaluator 
     return aliases;
 }
 
-- (BOOL)addAlias:(NSString *)alias forFunctionName:(NSString *)funcName{
+- (BOOL)addAlias:(NSString *)alias forFunctionName:(NSString *)funcName {
     
     alias = [alias lowercaseString];
     
-    if([FunctionDispatcher isAchievedFunction:alias]){
+    if  ([FunctionDispatcher isAchievedFunction:alias]) {
         return NO;
     }
     
-    if(_functionTable[alias]){
+    if  (_functionTable[alias]) {
         return NO;
     }
     
-    FunctionElementBlock funcBlock = ^ExpressionElement* (NSArray *args, FractionEvaluator *evaluator, NSError **error){
+    FunctionElementBlock funcBlock = ^ExpressionElement* (NSArray *args, FractionEvaluator *evaluator, NSError **error) {
         ExpressionElement *exp = [ExpressionElement functionElementWithFunction:funcName arguments:args error:error];
         Fraction*n = [evaluator evaluateExpression:exp error:error];
         

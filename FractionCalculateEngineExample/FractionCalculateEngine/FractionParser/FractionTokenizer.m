@@ -32,9 +32,9 @@
 
 - (instancetype)initWithString:(NSString *)exp operatorsSet:(FractionOperatorSet *)set error:(NSError *__autoreleasing*)error {
 	
-    if(	self = [super init]){
+    if  (	self = [super init]) {
         
-        if(set){
+        if  (set) {
             _operatorsSet = set;
         }else{
             _operatorsSet = [FractionOperatorSet preLoadOperatorSet];
@@ -51,16 +51,16 @@
         
         NSMutableArray * effectiveTokens = [NSMutableArray mutableCopy];
         Token*token = nil;
-        while((token = [self nextTokenWithError:error])){
+        while((token = [self nextTokenWithError:error])) {
             
-            if(token.tokenType == CalculatedTokenTypeNumber){
+            if  (token.tokenType == CalculatedTokenTypeNumber) {
                 
                 long long  llNum,denominator;
                 BOOL negative;
                 
                 NSRange range = [token.token rangeOfString:@"."];
                 
-                if (range.location == NSNotFound){
+                if (range.location == NSNotFound) {
                
                     llNum = [token.token longLongValue];
                     denominator = 1;
@@ -83,7 +83,7 @@
         
         _tokens = effectiveTokens;
 		
-        if(*error && error){
+        if  (*error && error) {
             return nil;
         }
     }
@@ -101,7 +101,7 @@
 
 - (unichar)peekNextOf:(unichar *)characters {
     
-    if(_characterIndex >= _length){
+    if  (_characterIndex >= _length) {
         return '\0';
     }
     
@@ -111,7 +111,7 @@
 - (unichar)nextOf:(unichar *)characters {
     
     unichar character = [self peekNextOf:characters];
-    if(character != '\0'){
+    if  (character != '\0') {
         _characterIndex++;
     }
     
@@ -123,29 +123,29 @@
     unichar next = [self peekNextOf:_characters];
     
     BOOL isWhitespaceOrNewline = [[NSCharacterSet whitespaceAndNewlineCharacterSet]characterIsMember:(next)];
-    while (isWhitespaceOrNewline){
+    while (isWhitespaceOrNewline) {
         
         (void)[self nextOf:_characters];
         next = [self peekNextOf:_characters];
     }
-    if(next == '\0'){
+    if  (next == '\0') {
         return nil;
     }
     
     Token*token = nil;
-    if(IS_VALID_DIGIT(next) || next == '.'){
+    if  (IS_VALID_DIGIT(next) || next == '.') {
         token = [self parseNumberTokenWithError:error];
     }
     
-    if(!token){
+    if  (!token) {
         token = [self parseOperatorTokenWithError:error];
     }
     
-    if(!token){
+    if  (!token) {
         token = [self parseFunctionTokenWithError:error];
     }
     
-    if(token){
+    if  (token) {
         *error = nil;
     }
     return token;
@@ -156,31 +156,31 @@
     NSUInteger start = _characterIndex;
     Token*token;
     
-    while (IS_VALID_DIGIT([self peekNextOf:_characters])){
+    while (IS_VALID_DIGIT([self peekNextOf:_characters])) {
         _characterIndex++;
     }
     
-    if([self peekNextOf:_characters] == '.'){
+    if  ([self peekNextOf:_characters] == '.') {
         _characterIndex++;
         
-        while (IS_VALID_DIGIT([self peekNextOf:_characters])){
+        while (IS_VALID_DIGIT([self peekNextOf:_characters])) {
             _characterIndex++;
         }
     }
     
     NSUInteger length = _characterIndex - start;
     
-    if(length > 0){
+    if  (length > 0) {
         
         //if only have one '.'，which is not a number
-        if(length != 1 || _characters[start] != '.'){
+        if  (length != 1 || _characters[start] != '.') {
             
             NSString *numRawToken = [NSString stringWithCharacters:(_characters+start) length:length];
             token = [[Token alloc] initWithToken:numRawToken type:CalculatedTokenTypeNumber operator:nil];
         }
     }
     
-    if(!token){
+    if  (!token) {
         _characterIndex = start;
         *error = Math_Error(ErrorCodeUnkownNumber, @"unable to parse number");
     }
@@ -200,13 +200,13 @@
     while ((peekNextChar = [self peekNextOf:_characters]) != '\0' &&
            !isWhitespaceOrNewline &&
            ![operatorChars characterIsMember:peekNextChar]
-           ){
+           ) {
         
         length++;
         _characterIndex++;
     }
     
-    if(length > 0){
+    if  (length > 0) {
         NSString *funRawToken = [NSString stringWithCharacters:(_characters+start) length:length];
         return [[Token alloc] initWithToken:funRawToken type:CalculatedTokenTypeFunction operator:nil];
     }
@@ -227,14 +227,14 @@
     FractionOperator *lastEffectiveOperator;
     NSUInteger lastEffectiveLength = length;
     
-    while (next != '\0'){
+    while (next != '\0') {
         
         NSString *tmpStr = [NSString stringWithCharacters:(_lowercaseCharacters+start) length:length];
         
-        if([self.operatorsSet hasOperatorWithPrefix:tmpStr]){
+        if  ([self.operatorsSet hasOperatorWithPrefix:tmpStr]) {
             
             NSArray *operators = [self.operatorsSet operatorsForToken:tmpStr];
-            if(operators.count > 0){
+            if  (operators.count > 0) {
                 
                 lastEffectiveOpStr = tmpStr;
                 lastEffectiveLength = length;
@@ -248,7 +248,7 @@
         }
     }
     
-    if(lastEffectiveOpStr){
+    if  (lastEffectiveOpStr) {
         _characterIndex = start + lastEffectiveLength;
         
         return [[Token alloc] initWithToken:lastEffectiveOpStr type:CalculatedTokenTypeOperator operator:lastEffectiveOperator];

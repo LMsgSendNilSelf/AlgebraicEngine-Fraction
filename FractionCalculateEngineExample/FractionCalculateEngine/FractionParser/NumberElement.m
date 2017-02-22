@@ -9,41 +9,41 @@
 #import "NumberElement.h"
 
 #import "Fraction.h"
-@implementation NumberElement{
+@implementation NumberElement {
 	Fraction*_fracNumber;
 }
 
-- (instancetype)initWithFractionNumber:(Fraction*)frac{
+- (instancetype)initWithFractionNumber:(Fraction*)frac {
 	
-	if(self = [super init]){
+	if  (self = [super init]) {
 		_fracNumber = frac;
 	}
 	return self;
 }
 
-- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder{
+- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
     return [self initWithFractionNumber:[aDecoder decodeObjectForKey:@"fracNumber"]];
 }
 
-- (void)encodeWithCoder:(NSCoder *)aCoder{
+- (void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:[self fractionNumber] forKey:@"fracNumber"];
 }
 
-- (id)copyWithZone:(NSZone *)zone{
+- (id)copyWithZone:(NSZone *)zone {
 #pragma unused(zone)
     return [[[self class] alloc] initWithFractionNumber:_fracNumber];
 }
 
-- (ExpressionElementType)expressionType{
+- (ExpressionElementType)expressionType {
     return  ExpressionTypeNumber;
 }
 
-- (ExpressionElement *)calculatedExpressionWithEvaluator:(FractionEvaluator *)evaluator error:(NSError **)error{
+- (ExpressionElement *)calculatedExpressionWithEvaluator:(FractionEvaluator *)evaluator error:(NSError **)error {
 #pragma unused(evaluator, error)
 	return self;
 }
 
-- (Fraction*)fractionNumber{
+- (Fraction*)fractionNumber {
     return _fracNumber;
 }
 

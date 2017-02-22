@@ -30,7 +30,7 @@ static NSString* const kKeyIsNegative  = @"isNegative";
              denominator:(unsigned long long)denominator
                 negative:(BOOL)negative{
     
-    if(  self = [super init]){
+    if  (  self = [super init]) {
         unsigned long long gcd = gcdForUnsignedLongLong(numerator, denominator);
         _numerator = numerator / gcd;
         _denominator = denominator / gcd;
@@ -48,15 +48,15 @@ static NSString* const kKeyIsNegative  = @"isNegative";
     unsigned long long lcm = lcmForUnsignedLongLong(denom1, denom2);
     long long numer1 = [self numerator] * lcm / denom1;
     long long numer2 = [addend numerator] * lcm / denom2;
-    if([self isNegative]){
+    if  ([self isNegative]) {
         numer1 *= -1;
     }
-    if([addend isNegative]){
+    if  ([addend isNegative]) {
         numer2 *= -1;
     }
     long long numerSum = numer1 + numer2;
     BOOL resultIsNegative = (numerSum < 0);
-    if(resultIsNegative){
+    if  (resultIsNegative) {
         numerSum *= -1;
         resultIsNegative = YES;
     }
@@ -92,7 +92,7 @@ static NSString* const kKeyIsNegative  = @"isNegative";
 - (id)fractionByMultiplyingByLongLong:(long long)factor{
     
     BOOL isNegative = NO;
-    if(factor < 0){
+    if  (factor < 0) {
         factor *= -1;
         isNegative = YES;
     }
@@ -118,7 +118,7 @@ static NSString* const kKeyIsNegative  = @"isNegative";
 {
     NSAssert(divisor != 0, @" divide by zero !!!");
     BOOL isNegative = NO;
-    if(divisor < 0){
+    if  (divisor < 0) {
         divisor *= -1;
         isNegative = YES;
     }
@@ -132,10 +132,10 @@ static NSString* const kKeyIsNegative  = @"isNegative";
 
 - (BOOL)isEqual:(id)object{
     
-    if(object == self){
+    if  (object == self) {
         return YES;
     }
-    if(![object isKindOfClass:[self class]]){
+    if  (![object isKindOfClass:[self class]]) {
         return NO;
     }
     return [self isNegative] == [object isNegative]
@@ -191,24 +191,24 @@ static NSString* const kKeyIsNegative  = @"isNegative";
 
 @implementation Fraction(Value)
 
-- (float)floatValue{
+- (float)floatValue {
     
     return (float)[self doubleValue];
 }
 
-- (double)doubleValue{
+- (double)doubleValue {
     
     return [[self decimalValue] doubleValue];
 }
 
-- (long long)longLongValue{
+- (long long)longLongValue {
     
     return [[self decimalValue] longLongValue];
 }
 
-- (NSDecimalNumber *)decimalValue{
+- (NSDecimalNumber *)decimalValue {
     
-    if([self numerator] == 0){
+    if  ([self numerator] == 0) {
         return [NSDecimalNumber zero];
     }
     NSDecimalNumber *num = [NSDecimalNumber decimalNumberWithMantissa:[self numerator]

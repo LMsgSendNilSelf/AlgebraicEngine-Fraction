@@ -20,8 +20,8 @@
 
 - (instancetype)initWithAtom:(ParserAtom *)atom error:(NSError *__autoreleasing*)error {
   
-    if(self = [super init]){
-        if(![self resolveAtom:atom error:error]){
+    if  (self = [super init]) {
+        if  (![self resolveAtom:atom error:error]) {
             return nil;
         }
         
@@ -34,16 +34,16 @@
 
 - (BOOL)resolveAtom:(ParserAtom *)atom error:(NSError *__autoreleasing*)error {
    
-    if(atom.resolved){
+    if  (atom.resolved) {
        
         return YES;
     }
     
-    if(atom.atomType ==  ParserAtomTypeFunction){
+    if  (atom.atomType ==  ParserAtomTypeFunction) {
         
         return [self resolveFunctionAtom:(FunctionAtom *)atom error:error];
         
-    }else if(atom.atomType ==  ParserAtomTypeCluster){
+    }else if  (atom.atomType ==  ParserAtomTypeCluster) {
         
         return [self resolveClusterAtom:(ClusterAtom *)atom error:error];
         
@@ -58,12 +58,12 @@
 
 - (BOOL)resolveFunctionAtom:(FunctionAtom *)atom error:(NSError *__autoreleasing*)error {
     
-    if(atom.subAtoms.count > 0){
+    if  (atom.subAtoms.count > 0) {
         
         // resolve each sub atom
-        for(ParserAtom *subatom in atom.subAtoms){
+        for(ParserAtom *subatom in atom.subAtoms) {
             
-            if(![self resolveAtom:subatom error:error]){
+            if  (![self resolveAtom:subatom error:error]) {
                 return NO;
             }
         }
@@ -78,39 +78,39 @@
 
 - (BOOL)resolveClusterAtom:(ClusterAtom *)atom error:(NSError *__autoreleasing*)error {
     
-    while (atom.subAtoms.count > 1){
+    while (atom.subAtoms.count > 1) {
         
         NSIndexSet *operatorSet = [self setOfHighestPrecendenceOperatorsInCluster:atom];
-        if(operatorSet.count == 0){
+        if  (operatorSet.count == 0) {
            
-            if(error){
+            if  (error) {
                 *error = Math_Error(ErrorCodeUnableParseFormat, @"format could not parse: %@", atom);
             }
             return NO;
         }
         
         NSUInteger opIndex = operatorSet.firstIndex;
-        if(operatorSet.count > 1){
+        if  (operatorSet.count > 1) {
         
             ParserAtom *operatorAtom = atom.subAtoms[opIndex];
           
-            if(operatorAtom.fractionOperator.associativity == OperatorAssociativityRight){
+            if  (operatorAtom.fractionOperator.associativity == OperatorAssociativityRight) {
                
                 opIndex = operatorSet.lastIndex;
             }
         }
         
         //  have the index for the next operator
-        if(![self reduceOperator:opIndex inCluster:atom error:error]){
+        if  (![self reduceOperator:opIndex inCluster:atom error:error]) {
            
             return NO;
         }
     }
     
-    if(atom.subAtoms.count > 0){
+    if  (atom.subAtoms.count > 0) {
         ParserAtom *subatom = atom.subAtoms[0];
        
-        if(![self resolveAtom:subatom error:error]){
+        if  (![self resolveAtom:subatom error:error]) {
           
             return NO;
         }
@@ -123,16 +123,16 @@
 - (NSIndexSet *)setOfHighestPrecendenceOperatorsInCluster:(ClusterAtom *)cluster {
     NSMutableIndexSet * set = [NSMutableIndexSet indexSet];
     __block NSInteger currentPrecedence = -1;
-    [cluster.subAtoms enumerateObjectsUsingBlock:^(ParserAtom *atom, NSUInteger idx, BOOL *stop){
+    [cluster.subAtoms enumerateObjectsUsingBlock:^(ParserAtom *atom, NSUInteger idx, BOOL *stop) {
         
-        if(atom.atomType ==  ParserAtomTypeOperator && !atom.resolved){
+        if  (atom.atomType ==  ParserAtomTypeOperator && !atom.resolved) {
             
             NSInteger precedence = atom.fractionOperator.precedence;
-            if(precedence > currentPrecedence){
+            if  (precedence > currentPrecedence) {
                 currentPrecedence = precedence;
                 [set removeAllIndexes];
                 [set addIndex:idx];
-            }else if(precedence == currentPrecedence){
+            }else if  (precedence == currentPrecedence) {
                 [set addIndex:idx];
             }
         }
@@ -144,11 +144,11 @@
  
     ParserAtom *opAtom = cluster.subAtoms[opIndex];
     
-    if(opAtom.fractionOperator.arity == FractionOperatorArityBinary){
+    if  (opAtom.fractionOperator.arity == FractionOperatorArityBinary) {
         
         return [self reduceBinaryOperator:opIndex inCluster:cluster error:error];
         
-    }else if(opAtom.fractionOperator.arity == FractionOperatorArityUnary){
+    }else if  (opAtom.fractionOperator.arity == FractionOperatorArityUnary) {
         
         return [self reduceUnaryOperator:opIndex inCluster:cluster error:error];
         
@@ -163,17 +163,17 @@
 - (BOOL)reduceBinaryOperator:(NSUInteger)opIndex inCluster:(ClusterAtom *)cluster error:(NSError *__autoreleasing*)error {
     ParserAtom *atom = cluster.subAtoms[opIndex];
     
-    if(opIndex == 0){
+    if  (opIndex == 0) {
         
-        if(error){
+        if  (error) {
             *error = Math_Error(ErrorCodeBinaryOperatorMissLeftOperand, @"no left operand to binary %@", atom);
         }
         
         return NO;
     }
-    if(opIndex >= cluster.subAtoms.count - 1){
+    if  (opIndex >= cluster.subAtoms.count - 1) {
        
-        if(error){
+        if  (error) {
             *error = Math_Error(ErrorCodeBinaryOperatorMissRightOperand, @"no right operand to binary %@", atom);
         }
         
@@ -185,10 +185,10 @@
     ParserAtom *leftOperand = cluster.subAtoms[opIndex-1];
     ParserAtom *rightOperand = cluster.subAtoms[opIndex+1];
     
-    if(![self resolveAtom:leftOperand error:error]){
+    if  (![self resolveAtom:leftOperand error:error]) {
         return NO;
     }
-    if(![self resolveAtom:rightOperand error:error]){
+    if  (![self resolveAtom:rightOperand error:error]) {
         return NO;
     }
     
@@ -209,10 +209,10 @@
     NSRange replacementRange;
     ParserAtom *parm;
     
-    if(associativity == OperatorAssociativityRight){
+    if  (associativity == OperatorAssociativityRight) {
     
-        if(operatorIndex >= cluster.subAtoms.count - 1){
-            if(error){
+        if  (operatorIndex >= cluster.subAtoms.count - 1) {
+            if  (error) {
                 *error = Math_Error(ErrorCodeUnaryOperatorMissRightOperand, @"no right operand to unary %@", atom);
             }
             return NO;
@@ -223,7 +223,7 @@
         
     }else{
         // left associative，such as "!n"
-        if(operatorIndex == 0){
+        if  (operatorIndex == 0) {
             *error = Math_Error(ErrorCodeUnaryOperatorMissLeftOperand, @"unary operator: %@ no left operand", atom);
             return NO;
         }
@@ -232,15 +232,15 @@
         replacementRange = NSMakeRange(operatorIndex-1, 2);
     }
     
-    if(parm.atomType == ParserAtomTypeOperator){
+    if  (parm.atomType == ParserAtomTypeOperator) {
       
-        if(error){
+        if  (error) {
             *error = Math_Error(ErrorCodeUnableParseFormat, @"unary operator: %@ would operate on another operator %@", atom, parm);
         }
         return NO;
     }
     
-    if(![self resolveAtom:parm error:error]){
+    if  (![self resolveAtom:parm error:error]) {
         return NO;
     }
     
@@ -261,19 +261,19 @@
 
 - (ExpressionElement *)expressionForAtom:(ParserAtom *)atom error:(NSError **)error {
     
-    if(!atom.resolved){
+    if  (!atom.resolved) {
         [NSException raise:NSInternalInconsistencyException format:@"atom unresolve"];
     }
     
-    if(atom.atomType ==  ParserAtomTypeNumber){
+    if  (atom.atomType ==  ParserAtomTypeNumber) {
         
         return [ExpressionElement numberElementWithNumber:atom.token.fraction];
         
-    }else if(atom.atomType ==  ParserAtomTypeCluster){
+    }else if  (atom.atomType ==  ParserAtomTypeCluster) {
         
         ClusterAtom *cluster = (ClusterAtom *)atom;
-        if(cluster.subAtoms.count != 1){
-            if(error){
+        if  (cluster.subAtoms.count != 1) {
+            if  (error) {
                 *error = Math_Error(ErrorCodeUnableParseFormat, @"atom  %@ unable create expression", cluster);
             }
             return nil;
@@ -281,15 +281,15 @@
         
         return [self expressionForAtom:cluster.subAtoms[0] error:error];
         
-    }else if(atom.atomType == ParserAtomTypeFunction){
+    }else if  (atom.atomType == ParserAtomTypeFunction) {
         
         FunctionAtom *function = (FunctionAtom *)atom;
         
         NSMutableArray *args = [NSMutableArray array];
-        for(ParserAtom *ato in function.subAtoms){
+        for(ParserAtom *ato in function.subAtoms) {
             ExpressionElement *arg = [self expressionForAtom:ato error:error];
            
-            if(!arg){
+            if  (!arg) {
                 
                 return nil;
             }
@@ -299,14 +299,14 @@
         
         return [ExpressionElement functionElementWithFunction:function.functionName arguments:args error:error];
         
-    }else if(atom.atomType ==  ParserAtomTypeOperator){
+    }else if  (atom.atomType ==  ParserAtomTypeOperator) {
         
-        if(error){
+        if  (error) {
             
-            switch (atom.fractionOperator.arity){
+            switch (atom.fractionOperator.arity) {
                 case FractionOperatorArityUnary:
                     
-                    switch (atom.fractionOperator.associativity){
+                    switch (atom.fractionOperator.associativity) {
                         case OperatorAssociativityLeft:
                             *error = Math_Error(ErrorCodeUnaryOperatorMissLeftOperand, @"no left operand of unary %@", atom.token);
                             break;

@@ -24,10 +24,10 @@
 
 - (instancetype)initWithFunction:(NSString *)aFunc arguments:(NSArray *)args error:(NSError *__autoreleasing*)error {
 	
-	if([super init]){
-		for(id arg in args){
-			if(![arg isKindOfClass:[ExpressionElement class]]){
-				if(error){
+	if  ([super init]) {
+		for(id arg in args) {
+			if  (![arg isKindOfClass:[ExpressionElement class]]) {
+				if  (error) {
                     *error = Math_Error(ErrorCodeArgumentTypeWrong, @"function args must be kind of ExpressionElement class");
 				}
 				return nil;
@@ -36,7 +36,7 @@
 		
 		_function  = [aFunc copy];
 		_arguments = [args  copy];
-        for(ExpressionElement *arg in _arguments){
+        for(ExpressionElement *arg in _arguments) {
             [arg setFatherExpression:self];
         }
 	}
@@ -57,14 +57,14 @@
 - (id)copyWithZone:(NSZone *)zone{
     
     NSMutableArray *newArguments = [NSMutableArray array];
-    for(id<NSCopying> arg in [self arguments]){
+    for(id<NSCopying> arg in [self arguments]) {
         [newArguments addObject:[arg copyWithZone:zone]];
     }
     
     return [[[self class] alloc] initWithFunction:[self function] arguments:newArguments error:nil];
 }
 
-- (ExpressionElementType)expressionType{
+- (ExpressionElementType)expressionType {
     
     return ExpressionTypeFunction;
 }
@@ -82,25 +82,25 @@
 	BOOL canCalculated = YES;
     
     NSMutableArray *newSubExps = [NSMutableArray array];
-	for(ExpressionElement * exp in [self arguments]){
+	for(ExpressionElement * exp in [self arguments]) {
 		ExpressionElement * calculated = [exp calculatedExpressionWithEvaluator:evaluator error:error];
-		if(!canCalculated){
+		if  (!canCalculated) {
             return nil;
         }
         canCalculated &= [calculated expressionType] ==  ExpressionTypeNumber;
         [newSubExps addObject:calculated];
 	}
 	
-	if(canCalculated){
-		if(!evaluator){
+	if  (canCalculated) {
+		if  (!evaluator) {
             evaluator = [FractionEvaluator defaultFractionEvaluator];
         }
 		
         id result = [evaluator evaluateExpression:self error:error];
 		
-		if([result isKindOfClass:[NumberElement class]]){
+		if  ([result isKindOfClass:[NumberElement class]]) {
 			return result;
-		}else if([result isKindOfClass:[Fraction class]]){
+		}else if  ([result isKindOfClass:[Fraction class]]) {
 			return [ExpressionElement numberElementWithNumber:result];
 		}		
 	}

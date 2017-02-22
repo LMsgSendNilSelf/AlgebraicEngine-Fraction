@@ -12,7 +12,7 @@
 #define Math_Error(_errorCode,_charP,...) [NSError errorWithDomain:@"FractionParser" code:(_errorCode) userInfo:@{ @"failReason": [NSString stringWithFormat:(_charP), ##__VA_ARGS__]}]
 #endif
 
-typedef NS_ENUM(NSInteger, ErrorCode){
+typedef NS_ENUM(NSInteger, ErrorCode) {
     
     ErrorCodeUnableParseFormat = 1,
     

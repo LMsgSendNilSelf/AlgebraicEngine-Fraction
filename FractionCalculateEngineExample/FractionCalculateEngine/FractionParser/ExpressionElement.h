@@ -10,7 +10,7 @@
 #import <Foundation/Foundation.h>
 #import "Macros.h"
 
-typedef NS_ENUM(NSInteger, ExpressionElementType){
+typedef NS_ENUM(NSInteger, ExpressionElementType) {
     ExpressionTypeNumber = 0,
 	ExpressionTypeFunction = 1,
 };

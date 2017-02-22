@@ -21,7 +21,7 @@
 
 - (instancetype)initWithTokenInterpreter:(FractionTokenInterpreter *)interpreter {
     
-    if(self = [super init]){
+    if  (self = [super init]) {
         
         _interpreter = interpreter;
     }
@@ -33,11 +33,11 @@
     ClusterAtom *clusterAtom = [[ClusterAtom alloc] init];
     ArrayEnumerator *tokenEnum = [[ArrayEnumerator alloc] initWithArray:_interpreter.tokens];
     
-    while ([tokenEnum peekNextObject]){
+    while ([tokenEnum peekNextObject]) {
        
         ParserAtom *nextAtom = [self atomWithEnumerator:tokenEnum error:error];
         
-        if(!nextAtom){
+        if  (!nextAtom) {
             return nil;
         }
         
@@ -56,15 +56,15 @@
     
     Token*next = enumerator.nextObject;
     
-    if(next){
+    if  (next) {
         ParserAtom *atom;
-        if(next.tokenType == CalculatedTokenTypeNumber){
+        if  (next.tokenType == CalculatedTokenTypeNumber) {
             
             atom = [[NumberAtom alloc] initWithToken:next];
             
-        }else if(next.tokenType == CalculatedTokenTypeOperator){
+        }else if  (next.tokenType == CalculatedTokenTypeOperator) {
             
-            if(next.fracOperator.function == kOperatorLeftBracket){
+            if  (next.fracOperator.function == kOperatorLeftBracket) {
                 
                 atom = [self clusterAtomWithEnumerator:enumerator error:error];
                 
@@ -73,14 +73,14 @@
                 atom = [[OperatorAtom alloc] initWithToken:next];
             }
             
-        }else if(next.tokenType == CalculatedTokenTypeFunction){
+        }else if  (next.tokenType == CalculatedTokenTypeFunction) {
             
             atom = [self functionAtomWithFunction:next enumerator:enumerator error:error];
         }
         
         return atom;
         
-    }else if(error){
+    }else if  (error) {
         
         *error = Math_Error(ErrorCodeUnableParseFormat, @"token is nil");
     }
@@ -91,9 +91,9 @@
     FunctionAtom *function = [[FunctionAtom alloc] initWithToken:funcToken];
     
     Token*leftBracket = enumerator.nextObject;
-    if(leftBracket.fracOperator.function != kOperatorLeftBracket){
+    if  (leftBracket.fracOperator.function != kOperatorLeftBracket) {
        
-        if(error){
+        if  (error) {
             *error = Math_Error(ErrorCodeDismatchBracket, @"Dismatch Bracket after the function \"%@\"", function.functionName);
         }
         return nil;
@@ -102,13 +102,13 @@
     ClusterAtom *currentClusterAtom;
     
     Token*nextToken = enumerator.peekNextObject;
-    while (nextToken && nextToken.fracOperator.function != KOperatorRightBracket){
+    while (nextToken && nextToken.fracOperator.function != KOperatorRightBracket) {
        
         ParserAtom *nextAtom = [self atomWithEnumerator:enumerator error:error];
        
-        if(nextAtom){
+        if  (nextAtom) {
             
-            if(!currentClusterAtom){
+            if  (!currentClusterAtom) {
                
                 currentClusterAtom = [[ClusterAtom alloc] init];
             }
@@ -121,16 +121,16 @@
         nextToken = enumerator.peekNextObject;
     }
     
-    if(!enumerator.nextObject){
+    if  (!enumerator.nextObject) {
         
-        if(error){
+        if  (error) {
            
             *error = Math_Error(ErrorCodeDismatchBracket, @"Dismatch Bracket");
         }
         return nil;
     }
     
-    if(currentClusterAtom){
+    if  (currentClusterAtom) {
      
         [function addSubatom:currentClusterAtom];
     }
@@ -144,11 +144,11 @@
     
     Token*next = enumerator.peekNextObject;
     
-    while (next && next.fracOperator.function != KOperatorRightBracket){
+    while (next && next.fracOperator.function != KOperatorRightBracket) {
         
         ParserAtom *nextAtom = [self atomWithEnumerator:enumerator error:error];
       
-        if(nextAtom){
+        if  (nextAtom) {
             
             [cluster addSubatom:nextAtom];
         }else{
@@ -158,9 +158,9 @@
         next = enumerator.peekNextObject;
     }
     
-    if(!enumerator.nextObject){
+    if  (!enumerator.nextObject) {
         
-        if(error){
+        if  (error) {
             *error = Math_Error(ErrorCodeDismatchBracket, @"Dismatch Bracket");
         }
         

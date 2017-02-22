@@ -14,16 +14,16 @@
 
 - (instancetype)initWithToken:(NSString *)t type:(CalculatedTokenType)type operator:(FractionOperator *)op {
 
-	if(	self = [super init]){
+	if  (	self = [super init]) {
         _token = [t copy];
 		_tokenType = type;
 		
-		if(_tokenType == CalculatedTokenTypeOperator){
+		if  (_tokenType == CalculatedTokenTypeOperator) {
             
             _fracOperator = op;
             _operatorUniqueness = !(_fracOperator == nil);
             
-		}else if(_tokenType == CalculatedTokenTypeNumber){
+		}else if  (_tokenType == CalculatedTokenTypeNumber) {
             
             long long aLLInt = [_token longLongValue];
             BOOL negative = aLLInt > 0 ? NO : YES;
@@ -33,12 +33,12 @@
 	return self;
 }
 
-- (NSString *)description{
+- (NSString *)description {
 
 	return _token;
 }
 
-- (void)setFracOperator:(FractionOperator *)fracOperator{
+- (void)setFracOperator:(FractionOperator *)fracOperator {
     
     _fracOperator = fracOperator;
     _operatorUniqueness = !(_fracOperator == nil);

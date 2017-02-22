@@ -8,12 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger, FractionOperatorAssociativity){
+typedef NS_ENUM(NSInteger, FractionOperatorAssociativity) {
 	OperatorAssociativityLeft = 0,
 	OperatorAssociativityRight = 1
 };
 
-typedef NS_ENUM(NSInteger, FractionOperatorArity){
+typedef NS_ENUM(NSInteger, FractionOperatorArity) {
     
     FractionOperatorArityUnary,
     FractionOperatorArityBinary

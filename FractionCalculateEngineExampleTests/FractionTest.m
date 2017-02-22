@@ -11,17 +11,17 @@
 #import "ExpressionElement.h"
 #import "NSString+FractionCalculateEngine.h"
 
-#define TESTFraction(_s, _v){ \
+#define TESTFraction(_s, _v) { \
 Fraction*_eval = EVAL(_s); \
 XCTAssertEqualObjects(_eval, _v, @"%@ should be equal to %@", (_s), _v); \
 }
 #define EVAL(_s) ([(_s) fractionByEvaluatingString])
 
-#define TESTEqual(_s, _v){XCTAssertEqualObjects(_s, _v, @"%@ should be equal to %@", (_s), _v);}
+#define TESTEqual(_s, _v) {XCTAssertEqualObjects(_s, _v, @"%@ should be equal to %@", (_s), _v);}
 
 @implementation FractionTest
 
--(void)testAdd{
+- (void)testAdd{
 
     Fraction*fraction1 = [Fraction fractionWithNumerator:1 denominator:2 negative:NO];
     Fraction*fraction2 = [Fraction fractionWithNumerator:2 denominator:6 negative:NO];

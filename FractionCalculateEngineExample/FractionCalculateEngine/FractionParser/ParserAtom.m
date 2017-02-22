@@ -17,7 +17,7 @@
 
 - (instancetype)initWithToken:(Token*)token {
     
-    if(self = [super init]){
+    if  (self = [super init]) {
         _token = token;
     }
     return self;
@@ -33,7 +33,7 @@
 
 - (instancetype)initWithToken:(Token*)token {
     
-    if(self = [super initWithToken:token]){
+    if  (self = [super initWithToken:token]) {
         
         _subAtoms = [NSMutableArray mutableCopy];
     }
@@ -74,10 +74,10 @@
 
 - (instancetype)initWithToken:(Token*)token {
     
-    if([super initWithToken:token]){
-        if(token.tokenType == CalculatedTokenTypeFunction){
+    if  ([super initWithToken:token]) {
+        if  (token.tokenType == CalculatedTokenTypeFunction) {
             _functionName = token.token;
-        }else if(token.tokenType == CalculatedTokenTypeOperator){
+        }else if  (token.tokenType == CalculatedTokenTypeOperator) {
             _functionName = token.fracOperator.function;
         }else{
             [NSException raise:NSInternalInconsistencyException format:@"Invalid token"];
@@ -86,7 +86,7 @@
     return self;
 }
 
-- (ParserAtomType)atomType{
+- (ParserAtomType)atomType {
     
     return  ParserAtomTypeFunction;
 }

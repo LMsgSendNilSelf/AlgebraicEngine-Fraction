@@ -11,7 +11,7 @@
 @class Token;
 @class FractionOperator;
 
-typedef NS_ENUM(NSInteger,  ParserAtomType){
+typedef NS_ENUM(NSInteger,  ParserAtomType) {
     
     ParserAtomTypeNumber = 1,
     ParserAtomTypeOperator,

@@ -17,11 +17,11 @@
 
 #import "Fraction.h"
 
-#define RETURN_NIL_IF_NIL(__fraction) if(!__fraction){ return nil; }
+#define RETURN_NIL_IF_NIL(__fraction) if  (!__fraction) { return nil; }
 
-#define NEED_N_ARGUMENTS(__n){ \
-if([arguments count] != (__n)){ \
-if(error){ \
+#define NEED_N_ARGUMENTS(__n) { \
+if  ([arguments count] != (__n)) { \
+if  (error) { \
 *error = Math_Error(ErrorCodeDismatchArgumentCount, @"%@ requires %d arguments", NSStringFromSelector(_cmd), (__n)); \
 } \
 return nil; \
@@ -46,15 +46,15 @@ static NSString *const _FunctionSelectorNameSuffix = @":error:";
         
         unsigned int count = 0;
         Method *methods = class_copyMethodList([FunctionDispatcher class], &count);
-        if(methods){
-            for(unsigned int i = 0; i < count; ++i){
+        if  (methods) {
+            for(unsigned int i = 0; i < count; ++i) {
                 Method method = methods[i];
                 NSString *selector = NSStringFromSelector(method_getName(method));
                 NSString *suffix = _FunctionSelectorNameSuffix;
-                if([selector hasSuffix:suffix]){
+                if  ([selector hasSuffix:suffix]) {
                     NSUInteger index = [selector length] - [suffix length];
                     NSString *functionName = [selector substringToIndex:index];
-                    if(![functionName isEqualToString:@"evaluateFunction"]){
+                    if  (![functionName isEqualToString:@"evaluateFunction"]) {
                         [methodSet addObject:functionName];
                     }
                 }
@@ -63,7 +63,7 @@ static NSString *const _FunctionSelectorNameSuffix = @":error:";
             free(methods);
         }
         
-        [methodSet sortUsingComparator:^NSComparisonResult(id a1, id a2){
+        [methodSet sortUsingComparator:^NSComparisonResult(id a1, id a2) {
             return [a1 compare:a2];
         }];
         
@@ -78,7 +78,7 @@ static NSString *const _FunctionSelectorNameSuffix = @":error:";
 
 - (instancetype)initWithFractionEvaluator:(FractionEvaluator *)evaluator{
 
-    if(self = [super init]){
+    if  (self = [super init]) {
         _evaluator = evaluator;
     }
     return self;
@@ -90,7 +90,7 @@ static NSString *const _FunctionSelectorNameSuffix = @":error:";
     SEL selector = NSSelectorFromString(sel);
     
     ExpressionElement *evaluation;
-    if([self.class instancesRespondToSelector:selector]){
+    if  ([self.class instancesRespondToSelector:selector]) {
         _FunctionDispatchIMP implement = (_FunctionDispatchIMP)[[self class] instanceMethodForSelector:selector];
         evaluation = implement(self, selector, [expression arguments], error);
     }else{

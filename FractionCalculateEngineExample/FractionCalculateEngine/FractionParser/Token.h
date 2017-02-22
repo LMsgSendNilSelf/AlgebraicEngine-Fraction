@@ -11,7 +11,7 @@
 #import "Fraction.h"
 #import "FractionOperator.h"
 
-typedef NS_ENUM(NSInteger, CalculatedTokenType){
+typedef NS_ENUM(NSInteger, CalculatedTokenType) {
 	CalculatedTokenTypeNumber = 0,
 	CalculatedTokenTypeOperator = 1,
 	CalculatedTokenTypeFunction = 2,

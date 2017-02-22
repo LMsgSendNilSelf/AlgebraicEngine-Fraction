@@ -48,18 +48,18 @@
 }
 
 + (BOOL)isValidOperatorToken:(NSString *)token {
-    if(token.length == 0){
+    if  (token.length == 0) {
         
         return YES;
     }
     
     unichar startChar = [token characterAtIndex:0];
-    if((startChar >= '0' && startChar <= '9' ) || startChar == '.' || startChar == '$' || startChar == '\'' || startChar == '"'){
+    if  ((startChar >= '0' && startChar <= '9' ) || startChar == '.' || startChar == '$' || startChar == '\'' || startChar == '"') {
         return NO;
     }
     
     NSString *trimmedStr = [token stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if(![trimmedStr isEqual:token]){
+    if  (![trimmedStr isEqual:token]) {
         
         return NO;
     }
@@ -71,14 +71,14 @@
  
     tokens = [tokens valueForKey:@"lowercaseString"];
     
-    for(NSString *token in tokens){
+    for(NSString *token in tokens) {
         
-        if(![FractionOperator isValidOperatorToken:token]){
+        if  (![FractionOperator isValidOperatorToken:token]) {
             [NSException raise:NSInvalidArgumentException format:@"Invalid operator token: %@", token];
         }
     }
 
-    if(self = [super init]){
+    if  (self = [super init]) {
         _arity = arity;
         _associativity = associativity;
         _precedence = precedence;
@@ -89,11 +89,11 @@
     return self;
 }
 
-- (void)addTokens:(NSArray *)moreTokens{
+- (void)addTokens:(NSArray *)moreTokens {
     _tokens = [_tokens arrayByAddingObjectsFromArray:[moreTokens valueForKey:@"lowercaseString"]];
 }
 
-- (id)copyWithZone:(NSZone *)zone{
+- (id)copyWithZone:(NSZone *)zone {
 
 #pragma unused(zone)
     
