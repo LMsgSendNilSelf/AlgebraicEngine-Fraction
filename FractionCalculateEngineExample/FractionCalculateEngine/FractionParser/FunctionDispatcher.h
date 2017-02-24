@@ -13,7 +13,7 @@
 
 @interface FunctionDispatcher : NSObject
 
-+ (NSOrderedSet *)preLoadFunctions;
++ (NSOrderedSet *)defaultFunctions;
 + (BOOL)isAchievedFunction:(NSString *)funcName;
 - (instancetype)initWithFractionEvaluator:(FractionEvaluator *)evaluator;
 

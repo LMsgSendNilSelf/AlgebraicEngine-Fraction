@@ -44,41 +44,10 @@
     return defaultOperators;
 }
 
-+ (BOOL)isValidOperatorToken:(NSString *)token {
-  
-    if  (token.length == 0) {
-        return YES;
-    }
-    
-    NSMutableCharacterSet *mutableSet = [NSMutableCharacterSet decimalDigitCharacterSet];
-    [mutableSet addCharactersInString:@".$\""];
-    
-    unichar first = [token characterAtIndex:0];
-    
-    if  ([mutableSet characterIsMember:first]) {
-        return NO;
-    }
-    
-    NSString *trimmedStr = [token stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-   
-    if  (![trimmedStr isEqual:token]) {
-        return NO;
-    }
-    
-    return YES;
-}
-
 #pragma mark - init
 - (instancetype)initWithOperatorFunction:(NSString *)funcs tokens:(NSArray *)tokens arity:(FractionOperatorArity)arity precedence:(NSInteger)precedence associativity:(FractionOperatorAssociativity)associativity {
  
     tokens = [tokens valueForKey:@"lowercaseString"];
-    
-    for(NSString *token in tokens) {
-        
-        if  (![FractionOperator isValidOperatorToken:token]) {
-            [NSException raise:NSInvalidArgumentException format:@"Invalid operator token: %@", token];
-        }
-    }
 
     if  (self = [super init]) {
         _arity = arity;

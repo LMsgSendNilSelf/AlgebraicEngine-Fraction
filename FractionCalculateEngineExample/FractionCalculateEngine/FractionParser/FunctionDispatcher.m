@@ -36,7 +36,7 @@ static NSString *const _FunctionSelectorNameSuffix = @":error:";
 
 @synthesize evaluator=_evaluator;
 
-+ (NSOrderedSet *)preLoadFunctions{
++ (NSOrderedSet *)defaultFunctions{
     
     static NSOrderedSet *functions = nil;
     static dispatch_once_t onceToken;
@@ -73,7 +73,7 @@ static NSString *const _FunctionSelectorNameSuffix = @":error:";
 }
 
 + (BOOL)isAchievedFunction:(NSString *)funcName{
-    return [[self preLoadFunctions] containsObject:[funcName lowercaseString]];
+    return [[self defaultFunctions] containsObject:[funcName lowercaseString]];
 }
 
 - (instancetype)initWithFractionEvaluator:(FractionEvaluator *)evaluator{
