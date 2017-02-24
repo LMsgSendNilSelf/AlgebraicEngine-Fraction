@@ -9,15 +9,12 @@
 #import "FractionOperator.h"
 #import "FractionOperatorSet.h"
 
-@interface FractionOperator ()
-
-@property (nonatomic, assign) NSInteger precedence;
-
-@end
+#define OPERATOR_INIT(_function, _tokens, _arity, _precedence, _assocciativity) [[FractionOperator alloc] initWithOperatorFunction:(_function) tokens:(_tokens) arity:(_arity) precedence:(_precedence) associativity:(_assocciativity)]
 
 @implementation FractionOperator
 
 + (NSArray *)defaultOperators {
+    
     static NSArray *defaultOperators = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -48,25 +45,30 @@
 }
 
 + (BOOL)isValidOperatorToken:(NSString *)token {
+  
     if  (token.length == 0) {
-        
         return YES;
     }
     
-    unichar startChar = [token characterAtIndex:0];
-    if  ((startChar >= '0' && startChar <= '9' ) || startChar == '.' || startChar == '$' || startChar == '\'' || startChar == '"') {
+    NSMutableCharacterSet *mutableSet = [NSMutableCharacterSet decimalDigitCharacterSet];
+    [mutableSet addCharactersInString:@".$\""];
+    
+    unichar first = [token characterAtIndex:0];
+    
+    if  ([mutableSet characterIsMember:first]) {
         return NO;
     }
     
     NSString *trimmedStr = [token stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+   
     if  (![trimmedStr isEqual:token]) {
-        
         return NO;
     }
     
     return YES;
 }
 
+#pragma mark - init
 - (instancetype)initWithOperatorFunction:(NSString *)funcs tokens:(NSArray *)tokens arity:(FractionOperatorArity)arity precedence:(NSInteger)precedence associativity:(FractionOperatorAssociativity)associativity {
  
     tokens = [tokens valueForKey:@"lowercaseString"];
@@ -89,19 +91,12 @@
     return self;
 }
 
-- (void)addTokens:(NSArray *)moreTokens {
-    _tokens = [_tokens arrayByAddingObjectsFromArray:[moreTokens valueForKey:@"lowercaseString"]];
-}
-
+#pragma mark - copy
 - (id)copyWithZone:(NSZone *)zone {
 
-#pragma unused(zone)
+    FractionOperator *copyOp = [[[self class]allocWithZone:zone]initWithOperatorFunction:_function tokens:_tokens arity:_arity precedence:_precedence associativity:_associativity];
     
-    return [[[self class] alloc] initWithOperatorFunction:_function
-                                                   tokens:_tokens
-                                                    arity:_arity
-                                               precedence:_precedence
-                                            associativity:_associativity];
+    return copyOp;
 }
 
 @end

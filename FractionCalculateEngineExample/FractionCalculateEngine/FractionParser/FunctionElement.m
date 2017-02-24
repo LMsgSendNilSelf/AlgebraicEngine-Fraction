@@ -108,8 +108,4 @@
 	return [ExpressionElement functionElementWithFunction:[self function] arguments:newSubExps error:error];
 }
 
-- (NSString *)description {
-	return [NSString stringWithFormat:@"%@(%@)", [self function], [[[self arguments] valueForKey:@"description"] componentsJoinedByString:@";"]];
-}
-
 @end

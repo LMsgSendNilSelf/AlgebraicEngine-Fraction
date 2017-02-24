@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger, CalculatedTokenType) {
 
 @interface Token: NSObject
 
-- (instancetype)initWithToken:(NSString *)t type:(CalculatedTokenType)type operator:(FractionOperator *)op;
+- (instancetype)initWithToken:(NSString *)aToken type:(CalculatedTokenType)aType operator:(FractionOperator *)op;
 
 @property (assign,readonly) BOOL operatorUniqueness;
 @property (nonatomic, readonly) NSString *token;

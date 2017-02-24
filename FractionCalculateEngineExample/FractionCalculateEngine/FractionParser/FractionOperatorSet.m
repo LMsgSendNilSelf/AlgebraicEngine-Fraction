@@ -9,16 +9,6 @@
 #import "FractionOperatorSet.h"
 #import "FractionOperator.h"
 
-@interface FractionOperator (FractionOperatorSet)
-
-#warning just make property and function in FractionOperator available
-@property (nonatomic, assign) NSInteger precedence;
-@property (nonatomic, assign) FractionOperatorAssociativity associativity;
-
-- (void)addTokens:(NSArray *)moreTokens;
-
-@end
-
 @interface FractionOperatorTokenMap : NSObject
 
 @property (nonatomic, readonly) NSCharacterSet *tokenCharacterSet;
@@ -26,19 +16,18 @@
 - (void)addOperator:(FractionOperator *)operator;
 - (BOOL)hasOperatorsForPrefix:(NSString *)prefix;
 - (NSArray *)operatorsForToken:(NSString *)token;
-- (NSString *)existingTokenForOperatorTokens:(FractionOperator *)operator;
 - (void)addTokens:(NSArray *)tokens forOperator:(FractionOperator *)operator;
 
 @end
 
 @implementation FractionOperatorSet {
-    NSMutableOrderedSet *_operators;
+    NSMutableOrderedSet *_orderedOperatorSet;
     FractionOperatorTokenMap *_operatorsByToken;
     NSMutableDictionary *_operatorsByFunction;
   
 }
 
-+ (instancetype)preLoadOperatorSet {
++ (instancetype)defaultOperatorSet {
     
     static FractionOperatorSet *defaultSet = nil;
     static dispatch_once_t onceToken;
@@ -57,11 +46,11 @@
 - (instancetype)initWithOperators:(NSArray *)operators {
     
     if  (self = [super init]) {
-        _operators = [NSMutableOrderedSet orderedSetWithArray:operators];
+        _orderedOperatorSet = [NSMutableOrderedSet orderedSetWithArray:operators];
         _operatorsByFunction = [NSMutableDictionary dictionary];
         _operatorsByToken = [[FractionOperatorTokenMap alloc] init];
         
-        for(FractionOperator *op in _operators) {
+        for(FractionOperator *op in _orderedOperatorSet) {
             _operatorsByFunction[op.function] = op;
             [_operatorsByToken addOperator:op];
         }
@@ -71,12 +60,14 @@
 }
 
 - (id)copyWithZone:(NSZone *)zone {
+    
+    FractionOperatorSet *copy = [[[self class]allocWithZone:zone]initWithOperators:_orderedOperatorSet.array];
    
-    return  [[[self class] alloc] initWithOperators:_operators.array];
+    return  copy;
 }
 
 - (NSArray *)operators {
-    return _operators.array.copy;
+    return _orderedOperatorSet.array;
 }
 
 - (NSCharacterSet *)operatorCharacters {
@@ -119,14 +110,14 @@
 
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(__unsafe_unretained id [])buffer count:(NSUInteger)len {
     
-    return [_operators countByEnumeratingWithState:state objects:buffer count:len];
+    return [_orderedOperatorSet countByEnumeratingWithState:state objects:buffer count:len];
 }
 
 @end
 
 @implementation FractionOperatorTokenMap {
    
-    NSMutableDictionary *_OperatorTokenMap;
+    NSMutableDictionary *_operatorTokenMap;
     NSCountedSet *_tokenCharacters;
     NSCharacterSet *_allowTokenCharacters;
     
@@ -136,7 +127,7 @@
 - (instancetype)init {
 
     if  (self = [super init]) {
-        _OperatorTokenMap = [NSMutableDictionary dictionary];
+        _operatorTokenMap = [NSMutableDictionary dictionary];
         _tokenCharacters = [NSCountedSet set];
         _allowTokenCharacters = [[NSCharacterSet alphanumericCharacterSet] invertedSet];
     }
@@ -158,10 +149,10 @@
             
             NSString *lowercaseToken = token.lowercaseString;
             
-            NSMutableOrderedSet *existingOps = _OperatorTokenMap[lowercaseToken];
+            NSMutableOrderedSet *existingOps = _operatorTokenMap[lowercaseToken];
             if  (!existingOps) {
                 existingOps = [NSMutableOrderedSet orderedSet];
-                _OperatorTokenMap[lowercaseToken] = existingOps;
+                _operatorTokenMap[lowercaseToken] = existingOps;
             }
             
             if  (![existingOps containsObject:operator]) {
@@ -175,32 +166,15 @@
 
 - (void)addToken:(NSString *)token {
     for(NSUInteger i = 0; i < token.length; ++i) {
-        NSString *tokenCharacter = [self convertTokenCharacter:[token characterAtIndex:i]];
-        if  (tokenCharacter) {
-            [_tokenCharacters addObject:tokenCharacter];
-        }
+    
+        unichar charI = [token characterAtIndex:i];
+        [_tokenCharacters addObject:[NSString stringWithFormat:@"%C", charI]];
     }
-}
-
-- (NSString *)convertTokenCharacter:(unichar)character {
-    if  ([_allowTokenCharacters characterIsMember:character]) {
-        return [NSString stringWithFormat:@"%C", character];
-    }
-    return nil;
-}
-
-- (NSString *)existingTokenForOperatorTokens:(FractionOperator *)operator {
-    for(NSString *token in operator.tokens) {
-        if  ([_OperatorTokenMap[token.lowercaseString] count] > 0) {
-            return token.lowercaseString;
-        }
-    }
-    return nil;
 }
 
 - (BOOL)hasOperatorsForPrefix:(NSString *)prefix {
     NSString *lowercasePrefix = prefix.lowercaseString;
-    for(NSString *token in _OperatorTokenMap) {
+    for(NSString *token in _operatorTokenMap) {
         if  ([token hasPrefix:lowercasePrefix]) {
             return YES;
         }
@@ -209,7 +183,7 @@
 }
 
 - (NSArray *)operatorsForToken:(NSString *)token {
-    NSMutableOrderedSet *existingOps = _OperatorTokenMap[token.lowercaseString];
+    NSMutableOrderedSet *existingOps = _operatorTokenMap[token.lowercaseString];
     return existingOps.array.copy;
 }
 

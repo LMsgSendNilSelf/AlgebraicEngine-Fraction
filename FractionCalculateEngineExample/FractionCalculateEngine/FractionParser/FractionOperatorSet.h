@@ -13,10 +13,10 @@
 
 @interface FractionOperatorSet : NSObject <NSFastEnumeration, NSCopying>
 
-@property (readonly, copy) NSArray *operators;
+@property (nonatomic, readonly) NSArray *operators;
 @property (nonatomic, readonly) NSCharacterSet *operatorCharacters;
 
-+ (instancetype)preLoadOperatorSet;
++ (instancetype)defaultOperatorSet;
 
 - (instancetype)init;
 

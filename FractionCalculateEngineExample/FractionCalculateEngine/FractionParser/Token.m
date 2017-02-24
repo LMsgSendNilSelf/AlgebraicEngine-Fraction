@@ -12,16 +12,16 @@
 
 @implementation Token
 
-- (instancetype)initWithToken:(NSString *)t type:(CalculatedTokenType)type operator:(FractionOperator *)op {
+- (instancetype)initWithToken:(NSString *)aToken type:(CalculatedTokenType)aType operator:(FractionOperator *)op {
 
-	if  (	self = [super init]) {
-        _token = [t copy];
-		_tokenType = type;
+	if  (self = [super init]) {
+        _token = aToken;
+		_tokenType = aType;
 		
 		if  (_tokenType == CalculatedTokenTypeOperator) {
             
             _fracOperator = op;
-            _operatorUniqueness = !(_fracOperator == nil);
+            _operatorUniqueness = !(op == nil);
             
 		}else if  (_tokenType == CalculatedTokenTypeNumber) {
             
@@ -31,11 +31,6 @@
         }
 	}
 	return self;
-}
-
-- (NSString *)description {
-
-	return _token;
 }
 
 - (void)setFracOperator:(FractionOperator *)fracOperator {

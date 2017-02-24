@@ -40,7 +40,7 @@ typedef ExpressionElement* (^FunctionElementBlock)(NSArray *, FractionEvaluator 
 	if  (self = [super init]) {
         _functionTable = [NSMutableDictionary mutableCopy];
         _functionEvaluator = [[FunctionDispatcher alloc] initWithFractionEvaluator:self];
-        _operatorsSet = [FractionOperatorSet preLoadOperatorSet];
+        _operatorsSet = [FractionOperatorSet defaultOperatorSet];
         
         NSDictionary *aliases = [self aliases];
         for(NSString *alias in aliases) {

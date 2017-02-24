@@ -32,12 +32,12 @@
 
 - (instancetype)initWithString:(NSString *)exp operatorsSet:(FractionOperatorSet *)set error:(NSError *__autoreleasing*)error {
 	
-    if  (	self = [super init]) {
+    if  (self = [super init]) {
         
         if  (set) {
             _operatorsSet = set;
         }else{
-            _operatorsSet = [FractionOperatorSet preLoadOperatorSet];
+            _operatorsSet = [FractionOperatorSet defaultOperatorSet];
         }
         
         _length = [exp length];
@@ -49,7 +49,7 @@
         
         _characterIndex = 0;
         
-        NSMutableArray * effectiveTokens = [NSMutableArray mutableCopy];
+        NSMutableArray * effectiveTokens = [NSMutableArray array];
         Token*token = nil;
         while((token = [self nextTokenWithError:error])) {
             

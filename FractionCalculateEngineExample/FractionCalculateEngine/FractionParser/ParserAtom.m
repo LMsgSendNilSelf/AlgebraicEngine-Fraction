@@ -35,7 +35,7 @@
     
     if  (self = [super initWithToken:token]) {
         
-        _subAtoms = [NSMutableArray mutableCopy];
+        _subAtoms = [NSMutableArray array];
     }
     return self;
 }
@@ -58,14 +58,6 @@
 - (ParserAtomType)atomType{
     
     return ParserAtomTypeCluster;
-}
-
-- (NSString *)description{
-    
-    NSArray  *descriptions = [[self subAtoms] valueForKey:@"description"];
-    NSString *description = [descriptions componentsJoinedByString:@""];
-    
-    return description;
 }
 
 @end
@@ -91,14 +83,6 @@
     return  ParserAtomTypeFunction;
 }
 
-- (NSString *)description{
-   
-    NSArray *descriptions = [[self subAtoms] valueForKey:@"description"];
-    NSString *description = [descriptions componentsJoinedByString:@";"];
-
-    return [NSString stringWithFormat:@"%@(%@)", _functionName, description ?: @""];
-}
-
 @end
 
 
@@ -113,10 +97,6 @@
     
     return  ParserAtomTypeNumber;
 }
-- (NSString *)description {
-    
-    return [[self token] description];
-}
 
 @end
 
@@ -124,11 +104,6 @@
 
 - ( ParserAtomType)atomType{
     return  ParserAtomTypeOperator;
-}
-
-- (NSString *)description {
-    
-    return [[self token] token];
 }
 
 @end

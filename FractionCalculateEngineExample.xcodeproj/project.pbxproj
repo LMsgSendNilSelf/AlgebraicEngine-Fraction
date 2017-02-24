@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		274A07D61E557E2200576D4C /* Fraction.m in Sources */ = {isa = PBXBuildFile; fileRef = 274A07D51E557E2200576D4C /* Fraction.m */; };
+		2754EDB81E603CEA00D05E0C /* NSObject+Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2754EDB71E603CEA00D05E0C /* NSObject+Properties.m */; };
 		27FD57071E52FA8900A2B872 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FD57061E52FA8900A2B872 /* main.m */; };
 		27FD570A1E52FA8900A2B872 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FD57091E52FA8900A2B872 /* AppDelegate.m */; };
 		27FD570D1E52FA8900A2B872 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FD570C1E52FA8900A2B872 /* ViewController.m */; };
@@ -50,6 +51,7 @@
 /* Begin PBXFileReference section */
 		274A07D41E557E2200576D4C /* Fraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fraction.h; sourceTree = "<group>"; };
 		274A07D51E557E2200576D4C /* Fraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Fraction.m; sourceTree = "<group>"; };
+		2754EDB71E603CEA00D05E0C /* NSObject+Properties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Properties.m"; sourceTree = "<group>"; };
 		27FD57021E52FA8900A2B872 /* FractionCalculateEngineExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FractionCalculateEngineExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27FD57061E52FA8900A2B872 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		27FD57081E52FA8900A2B872 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 		27FD57041E52FA8900A2B872 /* FractionCalculateEngineExample */ = {
 			isa = PBXGroup;
 			children = (
+				2754EDB71E603CEA00D05E0C /* NSObject+Properties.m */,
 				27FD57811E54970C00A2B872 /* NullSafe */,
 				27FD57301E52FAB800A2B872 /* FractionCalculateEngine */,
 				27FD57081E52FA8900A2B872 /* AppDelegate.h */,
@@ -461,6 +464,7 @@
 				27FD57691E52FAB800A2B872 /* FractionOperator.m in Sources */,
 				27FD576F1E52FAB800A2B872 /* Parser.m in Sources */,
 				27FD576E1E52FAB800A2B872 /* FractionTokenizer.m in Sources */,
+				2754EDB81E603CEA00D05E0C /* NSObject+Properties.m in Sources */,
 				27FD57661E52FAB800A2B872 /* ExpressionElement.m in Sources */,
 				27FD570A1E52FA8900A2B872 /* AppDelegate.m in Sources */,
 				27FD57631E52FAB800A2B872 /* NumberElement.m in Sources */,

@@ -47,8 +47,4 @@
     return _fracNumber;
 }
 
-- (NSString *)description {
-	return [[self fractionNumber] description];
-}
-
 @end

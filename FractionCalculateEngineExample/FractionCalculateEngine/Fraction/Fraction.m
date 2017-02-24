@@ -143,15 +143,6 @@ static NSString* const kKeyIsNegative  = @"isNegative";
     && [self denominator] == [object denominator];
 }
 
-#pragma mark - description
-
-- (NSString *)description{
-    
-    NSString *symbol = [self isNegative]?@"-":@"+";
-    
-    return [NSString stringWithFormat:@"(%@%llu/%llu)",symbol, [self numerator], [self denominator]];
-}
-
 #pragma mark NSCopying
 
 - (instancetype)copyWithZone:(NSZone *)zone{
