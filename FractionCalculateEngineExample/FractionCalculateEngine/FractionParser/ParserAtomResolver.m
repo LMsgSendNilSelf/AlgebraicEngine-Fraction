@@ -81,6 +81,7 @@
     while (atom.subAtoms.count > 1) {
         
         NSIndexSet *operatorSet = [self setOfHighestPrecendenceOperatorsInCluster:atom];
+     
         if  (operatorSet.count == 0) {
            
             if  (error) {
@@ -121,6 +122,7 @@
 }
 
 - (NSIndexSet *)setOfHighestPrecendenceOperatorsInCluster:(ClusterAtom *)cluster {
+    
     NSMutableIndexSet * set = [NSMutableIndexSet indexSet];
     __block NSInteger currentPrecedence = -1;
     [cluster.subAtoms enumerateObjectsUsingBlock:^(ParserAtom *atom, NSUInteger idx, BOOL *stop) {
@@ -137,6 +139,7 @@
             }
         }
     }];
+    
     return set;
 }
 

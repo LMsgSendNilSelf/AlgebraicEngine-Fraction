@@ -38,7 +38,7 @@ typedef ExpressionElement* (^FunctionElementBlock)(NSArray *, FractionEvaluator 
 - (id)init {
 	
 	if  (self = [super init]) {
-        _functionTable = [NSMutableDictionary mutableCopy];
+        _functionTable = [NSMutableDictionary dictionary];
         _functionEvaluator = [[FunctionDispatcher alloc] initWithFractionEvaluator:self];
         _operatorsSet = [FractionOperatorSet defaultOperatorSet];
         

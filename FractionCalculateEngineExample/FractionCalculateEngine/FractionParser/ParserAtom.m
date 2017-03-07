@@ -85,15 +85,18 @@
 
 @end
 
-
 @implementation NumberAtom
 
 - (instancetype)initWithToken:(Token*)token {
-    self = [super initWithToken:token];
-    self.resolved = YES;
+    
+    if(self = [super initWithToken:token]){
+
+        self.resolved = YES;
+    }
     return self;
 }
-- ( ParserAtomType)atomType{
+
+- (ParserAtomType)atomType{
     
     return  ParserAtomTypeNumber;
 }
@@ -102,7 +105,7 @@
 
 @implementation OperatorAtom
 
-- ( ParserAtomType)atomType{
+- (ParserAtomType)atomType{
     return  ParserAtomTypeOperator;
 }
 

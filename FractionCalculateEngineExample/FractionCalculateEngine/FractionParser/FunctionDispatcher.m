@@ -42,7 +42,7 @@ static NSString *const _FunctionSelectorNameSuffix = @":error:";
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         
-        NSMutableOrderedSet *methodSet = [NSMutableOrderedSet mutableCopy];
+        NSMutableOrderedSet *methodSet = [NSMutableOrderedSet orderedSet];
         
         unsigned int count = 0;
         Method *methods = class_copyMethodList([FunctionDispatcher class], &count);

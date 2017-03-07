@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#import "NSString+FractionCalculateEngine.h"
+#import "Fraction.h"
 
 @interface ViewController ()
 
@@ -17,6 +19,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    Fraction *result = [@"1/2+2" fractionByEvaluatingString];
+    
 }
 
 
