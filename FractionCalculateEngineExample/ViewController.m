@@ -18,17 +18,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
     
-    Fraction *result = [@"1/2+2" fractionByEvaluatingString];
+    Fraction *result1 = [@"1/2+2" fractionByEvaluatingString];
+    Fraction *result2 = [@"1/2+3/2" fractionByEvaluatingString];
+    Fraction *result3 = [@"-1/2-2/3" fractionByEvaluatingString];
+    Fraction *result4 = [@"1/2*2/3" fractionByEvaluatingString];
+    Fraction *result5 = [@"1/2÷2/2" fractionByEvaluatingString];
+    Fraction *result6 = [@"-1/2÷2/3*2/5+2" fractionByEvaluatingString];
     
+    NSLog(@"result1:%@\nresult2:%@\nresult3:%@\nresult4:%@\nresult5:%@\nresult6:%@\n",[result1 description],[result2 description],[result3 description],[result4 description],[result5 description],[result6 description]);
 }
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 @end
