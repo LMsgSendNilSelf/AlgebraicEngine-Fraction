@@ -31,7 +31,7 @@
 
 - (id)copyWithZone:(NSZone *)zone {
 #pragma unused(zone)
-    return [[[self class] alloc] initWithFractionNumber:_fracNumber];
+    return [[[self class] allocWithZone:zone] initWithFractionNumber:_fracNumber];
 }
 
 - (ExpressionElementType)expressionType {

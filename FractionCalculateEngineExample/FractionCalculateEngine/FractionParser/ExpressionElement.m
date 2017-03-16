@@ -37,7 +37,7 @@
 #pragma mark Abstract method implementations
 
 - (id)copyWithZone:(NSZone *)zone {
-#pragma unused(zone)
+
 	[NSException raise:NSInternalInconsistencyException format:@"%@ must overridden by subclass", NSStringFromSelector(_cmd)];
     return nil;
 }

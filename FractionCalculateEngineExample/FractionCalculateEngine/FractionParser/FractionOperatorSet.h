@@ -18,8 +18,6 @@
 
 + (instancetype)defaultOperatorSet;
 
-- (instancetype)init;
-
 - (BOOL)hasOperatorWithPrefix:(NSString *)prefix;
 
 - (FractionOperator *)operatorForFunction:(NSString *)function;
