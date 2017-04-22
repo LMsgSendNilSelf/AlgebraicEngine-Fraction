@@ -2,7 +2,7 @@
 
 Parser Theory : Gradient descent
 
-Process:
+Parser Process:
 <p align="center" >
   <img src="https://github.com/LMsgSendNilSelf/FractionCalculateEngineExample/blob/master/%E7%B4%A0%E6%9D%90/%E6%B5%81%E7%A8%8B.png" alt="解析流程" title="解析流程">
  
@@ -25,15 +25,14 @@ AST：
 </p>
 
 ------------------------------------------------------------------------
-Tips：there are two types of fraction
+Tips：
 
-1. the number  ,which is  regarded as fraction through process，such as
+1. adjust number  ,which is  regarded as fraction through process，such as
   
 	2 convert to 2/1 ;
 	0.2 convert to 2/10;
 	0.9998 convert to 9998/10000
 
-2. the function ,'frac', is the other expression type of faction 
+2. because of object-c without function operator,we need convert operators,such as @"+", to function name,such as "add"
 
-
-Todo ：processing，demo，test
+Todo ：processing，demo，more test
