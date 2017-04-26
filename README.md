@@ -1,5 +1,7 @@
 # FractionCalculateEngineExample
 
+*******This parser calculates not only fraction, but also normal expression, so you can expand this library to normal calculation，detail illustration will be added in the near future.
+
 Parser Theory : Gradient descent
 
 Parser Process:
