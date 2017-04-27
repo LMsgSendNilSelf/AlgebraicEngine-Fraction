@@ -1,6 +1,6 @@
 # FractionCalculateEngineExample
 
-*******This parser calculates not only fraction, but also normal expression, so you can expand this library to normal calculation，detail illustration will be added in the near future.
+***This parser calculates more than fraction, and normal expression as well, so you can expand this library to normal calculation，detail illustration will be added in the near future.
 
 Parser Theory : Gradient descent
 
@@ -38,6 +38,9 @@ Tips：
 2. because of object-c without function operator,we need convert operators,such as @"+", to function name,such as "add"
 
 Todo ：
+
 1 processing，
+
 2 demo，
+
 3 more test
