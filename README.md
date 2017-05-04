@@ -21,7 +21,7 @@ Tokens：1, +,  2, *, (,  3,  -,  4,  ）
   <img src="https://github.com/LMsgSendNilSelf/FractionCalculateEngineExample/blob/master/%E7%B4%A0%E6%9D%90/parser" alt="解析数据" title="解析数据">
 </p>
 
-AST：
+AST(抽象树)：
 <p align="center" >
   <img src="https://github.com/LMsgSendNilSelf/FractionCalculateEngineExample/blob/master/%E7%B4%A0%E6%9D%90/ast.png" alt="抽象树" title="AST">
 </p>
