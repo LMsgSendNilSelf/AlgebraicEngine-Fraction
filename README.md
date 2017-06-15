@@ -29,7 +29,7 @@ AST(抽象树)：
   <img src="https://github.com/LMsgSendNilSelf/FractionCalculateEngineExample/blob/master/%E7%B4%A0%E6%9D%90/ast.png" alt="抽象树" title="AST">
 </p>
 
-In fact, the math expression is been parsed into one custom nested group in code，and then resolve each level group sub expression from inside to outside.
+In fact, the math expression is parsed into one custom nested group in code，and then resolve each level group sub expression from inside to outside.
 
 ------------------------------------------------------------------------
 Tips：
