@@ -13,12 +13,10 @@
 @implementation NSString (FractionCalculateEngine)
 
 - (Fraction*)fractionByEvaluatingString {
-    
     NSError *error = nil;
     Fraction*value = [[FractionEvaluator defaultFractionEvaluator] evaluateString:self error:&error];
     
-    if  (!value) {
-        
+    if (!value) {
         NSLog(@"error: %@", error);
     }
     

@@ -17,11 +17,11 @@
 
 #import "Fraction.h"
 
-#define RETURN_NIL_IF_NIL(__fraction) if  (!__fraction) { return nil; }
+#define RETURN_NIL_IF_NIL(__fraction) if (!__fraction) { return nil; }
 
 #define NEED_N_ARGUMENTS(__n) { \
-if  ([arguments count] != (__n)) { \
-if  (error) { \
+if ([arguments count] != (__n)) { \
+if (error) { \
 *error = Math_Error(ErrorCodeDismatchArgumentCount, @"%@ requires %d arguments", NSStringFromSelector(_cmd), (__n)); \
 } \
 return nil; \
@@ -37,24 +37,22 @@ static NSString *const _FunctionSelectorNameSuffix = @":error:";
 @synthesize evaluator=_evaluator;
 
 + (NSOrderedSet *)defaultFunctions{
-    
     static NSOrderedSet *functions = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        
         NSMutableOrderedSet *methodSet = [NSMutableOrderedSet orderedSet];
-        
         unsigned int count = 0;
         Method *methods = class_copyMethodList([FunctionDispatcher class], &count);
-        if  (methods) {
+        
+        if (methods) {
             for(unsigned int i = 0; i < count; ++i) {
                 Method method = methods[i];
                 NSString *selector = NSStringFromSelector(method_getName(method));
                 NSString *suffix = _FunctionSelectorNameSuffix;
-                if  ([selector hasSuffix:suffix]) {
+                if ([selector hasSuffix:suffix]) {
                     NSUInteger index = [selector length] - [suffix length];
                     NSString *functionName = [selector substringToIndex:index];
-                    if  (![functionName isEqualToString:@"evaluateFunction"]) {
+                    if (![functionName isEqualToString:@"evaluateFunction"]) {
                         [methodSet addObject:functionName];
                     }
                 }
@@ -77,10 +75,10 @@ static NSString *const _FunctionSelectorNameSuffix = @":error:";
 }
 
 - (instancetype)initWithFractionEvaluator:(FractionEvaluator *)evaluator{
-
-    if  (self = [super init]) {
+    if (self = [super init]) {
         _evaluator = evaluator;
     }
+    
     return self;
 }
 
@@ -88,12 +86,12 @@ static NSString *const _FunctionSelectorNameSuffix = @":error:";
     NSString *funcName = [[expression function] lowercaseString];
     NSString *sel = [NSString stringWithFormat:@"%@%@", funcName, _FunctionSelectorNameSuffix];
     SEL selector = NSSelectorFromString(sel);
-    
     ExpressionElement *evaluation;
-    if  ([self.class instancesRespondToSelector:selector]) {
+    
+    if ([self.class instancesRespondToSelector:selector]) {
         _FunctionDispatchIMP implement = (_FunctionDispatchIMP)[[self class] instanceMethodForSelector:selector];
         evaluation = implement(self, selector, [expression arguments], error);
-    }else{
+    } else {
         [NSException raise:NSInternalInconsistencyException format:@"not have this function"];
     }
     
@@ -145,7 +143,6 @@ static NSString *const _FunctionSelectorNameSuffix = @":error:";
 }
 
 - (ExpressionElement *)negate:(NSArray *)arguments error:(NSError **)error {
-    
     NEED_N_ARGUMENTS(1);
     Fraction*firstValue = [[self evaluator] evaluateExpression:arguments[0] error:error];
     RETURN_NIL_IF_NIL(firstValue);

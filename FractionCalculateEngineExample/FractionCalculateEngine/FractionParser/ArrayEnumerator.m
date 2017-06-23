@@ -14,8 +14,7 @@
 }
 
 - (instancetype)initWithArray:(NSArray *)array {
-
-    if  (self = [super init]) {
+    if (self = [super init]) {
         _array = array;
         _index = 0;
     }
@@ -24,8 +23,7 @@
 }
 
 - (id)peekNextObject {
-    
-    if  (_index >= _array.count) {
+    if (_index >= _array.count) {
         
         return nil;
     }
@@ -34,14 +32,13 @@
 }
 
 - (id)nextObject {
-    
     id object = [self peekNextObject];
-    if  (object) { _index++; }
+    if (object) { _index++; }
+   
     return object;
 }
 
 - (NSArray *)allObjects {
-    
     return _array;
 }
 

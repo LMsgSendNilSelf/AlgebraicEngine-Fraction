@@ -7,15 +7,14 @@
 //
 
 #import "NumberElement.h"
-
+#import "FractionEvaluator.h"
 #import "Fraction.h"
 @implementation NumberElement {
 	Fraction*_fracNumber;
 }
 
 - (instancetype)initWithFractionNumber:(Fraction*)frac {
-	
-	if  (self = [super init]) {
+	if (self = [super init]) {
 		_fracNumber = frac;
 	}
 	return self;
@@ -30,7 +29,6 @@
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-#pragma unused(zone)
     return [[[self class] allocWithZone:zone] initWithFractionNumber:_fracNumber];
 }
 
@@ -39,7 +37,6 @@
 }
 
 - (ExpressionElement *)calculatedExpressionWithEvaluator:(FractionEvaluator *)evaluator error:(NSError **)error {
-#pragma unused(evaluator, error)
 	return self;
 }
 

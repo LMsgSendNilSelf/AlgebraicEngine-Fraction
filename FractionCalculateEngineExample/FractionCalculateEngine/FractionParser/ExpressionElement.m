@@ -37,57 +37,62 @@
 #pragma mark Abstract method implementations
 
 - (id)copyWithZone:(NSZone *)zone {
-
 	[NSException raise:NSInternalInconsistencyException format:@"%@ must overridden by subclass", NSStringFromSelector(_cmd)];
+   
     return nil;
 }
 
 - (ExpressionElementType)expressionType {
 	[NSException raise:NSInternalInconsistencyException format:@"%@ must overridden by subclass",  NSStringFromSelector(_cmd)];
-	return  ExpressionTypeNumber;
+	
+    return  ExpressionTypeNumber;
 }
 
 - (ExpressionElement *)calculatedExpressionWithEvaluator:(FractionEvaluator *)evaluator error:(NSError **)error {
 #pragma unused(evaluator, error)
 	[NSException raise:NSInvalidArgumentException format:@"%@ must overridden by subclass",NSStringFromSelector(_cmd)];
-	return nil; 
+	
+    return nil;
 }
 - (Fraction*)fractionNumber {
 	[NSException raise:NSInternalInconsistencyException format:@"%@ must overridden by subclass",NSStringFromSelector(_cmd)];
-	return nil; 
+	
+    return nil;
 }
 - (NSString *)function { 
 	[NSException raise:NSInvalidArgumentException format:@"%@ must overridden by subclass",NSStringFromSelector(_cmd)];
-	return nil; 
+	
+    return nil;
 }
 - (NSArray *)arguments { 
 	[NSException raise:NSInvalidArgumentException format:@"%@ must overridden by subclass",NSStringFromSelector(_cmd)];
-	return nil; 
+	
+    return nil;
 }
 
 - (NSUInteger)hash {
-    if  ([self expressionType] ==  ExpressionTypeNumber) {
+    if ([self expressionType] ==  ExpressionTypeNumber) {
         return [[self fractionNumber] hash];
-    }else if  ([self expressionType] == ExpressionTypeFunction) {
+    } else if ([self expressionType] == ExpressionTypeFunction) {
         return [[self function] hash];
     }
+   
     return [super hash];
 }
 - (BOOL)isEqual:(id)object {
-	
-    if  (![object isKindOfClass:[ExpressionElement class]]) {
+    if (![object isKindOfClass:[ExpressionElement class]]) {
         return NO;
     }
     
 	ExpressionElement * expression = (ExpressionElement *)object;
-	if  ([expression expressionType] != [self expressionType]) {
+	if ([expression expressionType] != [self expressionType]) {
         return NO;
     }
-	if  ([self expressionType] ==  ExpressionTypeNumber) {
+	if ([self expressionType] ==  ExpressionTypeNumber) {
         
 		return [[self fractionNumber] isEqual:[expression fractionNumber]];
 	}
-	if  ([self expressionType] == ExpressionTypeFunction) {
+	if ([self expressionType] == ExpressionTypeFunction) {
         
 		return ([[self function] isEqual:[expression function]] &&
 				[[self arguments] isEqual:[expression arguments]]);

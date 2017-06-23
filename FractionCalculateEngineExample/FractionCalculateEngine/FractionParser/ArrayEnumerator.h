@@ -11,7 +11,6 @@
 @interface ArrayEnumerator : NSEnumerator
 
 - (instancetype)initWithArray:(NSArray *)array;
-
 - (id)peekNextObject;
 
 @end

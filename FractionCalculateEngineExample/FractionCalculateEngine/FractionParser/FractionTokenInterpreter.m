@@ -25,17 +25,16 @@
 }
 
 - (instancetype)initWithTokenizer:(FractionTokenizer *)tokenizer error:(NSError *__autoreleasing *)error {
-    
-    if  (self = [super init]) {
-        
+    if (self = [super init]) {
         _tokens = [NSMutableArray array];
         _tokenizer = tokenizer;
         _operatorSet = tokenizer.operatorsSet;
         
         NSError *internalError;
-        if  (![self interpretTokens:tokenizer error:&internalError]) {
+      
+        if (![self interpretTokens:tokenizer error:&internalError]) {
             
-            if  (error) {
+            if (error) {
                 *error = internalError;
             }
             
@@ -46,11 +45,9 @@
 }
 
 - (BOOL)interpretTokens:(FractionTokenizer *)tokenizer error:(NSError **)error {
-    
     for(Token*token in tokenizer.tokens) {
-        
         NSArray *newTokens = [self tokensForToken:token error:error];
-        if  (!newTokens) {
+        if (!newTokens) {
             return NO;
         }
         
@@ -59,7 +56,7 @@
     
     NSArray *newTokens = [self tokensForToken:nil error:error];
     
-    if  (!newTokens) {
+    if (!newTokens) {
         return NO; }
     [_tokens addObjectsFromArray:newTokens];
     
@@ -67,21 +64,19 @@
 }
 
 - (NSArray *)tokensForToken:(Token*)token error:(NSError **)error {
-   
     Token*lastToken = _tokens.lastObject;
     Token*replacement = token;
     
-    if  (token) {
+    if (token) {
         //+-可能是正负也可能是加减
         replacement = [self replacementForUnSureOperator:token previousToken:lastToken error:error];
-        if  (!replacement) {
+        if (!replacement) {
             return nil;
         }
     }
     
     //如果是正号 没啥用
-    if  (replacement.fracOperator.function == kOperatorUnaryPlus) {
-        
+    if (replacement.fracOperator.function == kOperatorUnaryPlus) {
         return @[];
     }
     
@@ -89,89 +84,77 @@
     
     lastToken = tokens.lastObject ?: lastToken;
     NSArray *inserted = [self insertedTokensForImplicitMultiply:replacement previousToken:lastToken error:error];
-    if  (!inserted) {
-        
+    
+    if (!inserted) {
         return nil;
     }
     [tokens addObjectsFromArray:inserted];
 
-    if  (replacement) {
+    if (replacement) {
         [tokens addObject:replacement];
     }
+    
     return tokens;
 }
 
 - (Token*)replacementForUnSureOperator:(Token*)token previousToken:(Token*)previous error:(NSError **)error {
-    
-    if  (token.tokenType != CalculatedTokenTypeOperator) {
+    if (token.tokenType != CalculatedTokenTypeOperator) {
         return token;
     }
     
-    if  (token.operatorUniqueness) {
-        
+    if (token.operatorUniqueness) {
         return token;
     }
     
     FractionOperator *resolvedOperator;
     FractionOperatorArity arity = FractionOperatorArityBinary;
     
-    if  (!previous) {
-   
+    if (!previous) {
         arity = FractionOperatorArityUnary;
         
-    }else if  (previous.tokenType == CalculatedTokenTypeOperator) {
-        
-        if  (previous.fracOperator.arity == FractionOperatorArityBinary) {
+    } else if (previous.tokenType == CalculatedTokenTypeOperator) {
+        if (previous.fracOperator.arity == FractionOperatorArityBinary) {
             //两个二元操作符不能在一起
             arity = FractionOperatorArityUnary;
-            
-        }else if  (previous.fracOperator.arity == FractionOperatorArityUnary) {
-            if  (previous.fracOperator.associativity == OperatorAssociativityRight) {
-             
+        } else if (previous.fracOperator.arity == FractionOperatorArityUnary) {
+            if (previous.fracOperator.associativity == OperatorAssociativityRight) {
                 arity = FractionOperatorArityUnary;
-                
-            }else{
-                
+            } else {
                 resolvedOperator = [self.operatorSet operatorForToken:token.token arity:FractionOperatorArityUnary associativity:OperatorAssociativityLeft];
                 
-                if  (!resolvedOperator ) {
+                if (!resolvedOperator ) {
                     resolvedOperator = [self.operatorSet operatorForToken:token.token arity:FractionOperatorArityBinary];
                 }
                 
-                if  (!resolvedOperator) {
+                if (!resolvedOperator) {
                     resolvedOperator = [self.operatorSet operatorForToken:token.token arity:FractionOperatorArityUnary associativity:OperatorAssociativityRight];
                 }
             }
-        }else{
-
+        } else {
             [NSException raise:NSInternalInconsistencyException format:@"unsure operator: %@", previous];
             
             return nil;
         }
-    }else if  (previous.tokenType == CalculatedTokenTypeNumber) {
-        
+    } else if (previous.tokenType == CalculatedTokenTypeNumber) {
         resolvedOperator = [self.tokenizer.operatorsSet operatorForToken:token.token arity:FractionOperatorArityUnary associativity:OperatorAssociativityLeft];
         
-        if  (!resolvedOperator) {
+        if (!resolvedOperator) {
             resolvedOperator = [self.operatorSet operatorForToken:token.token arity:FractionOperatorArityBinary];
         }
-        if  (!resolvedOperator) {
+        
+        if (!resolvedOperator) {
             resolvedOperator = [self.operatorSet operatorForToken:token.token arity:FractionOperatorArityUnary associativity:OperatorAssociativityRight];
         }
-    }else{
-        
+    } else {
         arity = FractionOperatorArityBinary;
     }
     
-    if  (!resolvedOperator) {
-        
+    if (!resolvedOperator) {
         resolvedOperator = [self.tokenizer.operatorsSet operatorForToken:token.token arity:arity];
     }
     
-    if  (!resolvedOperator) {
-        
-        if  (error) {
-            
+    if (!resolvedOperator) {
+        if (error) {
             *error = Math_Error(ErrorCodeUnknownOperatorPrecedence, @"can not decide precedence of token: %@", token);
         }
         
@@ -182,18 +165,16 @@
 }
 
 - (NSArray *)insertedTokensForImplicitMultiply:(Token*)token previousToken:(Token*)previous error:(NSError **)error {
-   
     NSArray *replacements = [NSArray array];
     
-    if  (previous && token) {
-        
+    if (previous && token) {
         BOOL needInsertMultiplier = NO;
         
-        if  (previous.tokenType == CalculatedTokenTypeNumber ||
+        if (previous.tokenType == CalculatedTokenTypeNumber ||
             (previous.fracOperator.arity == FractionOperatorArityUnary &&
              previous.fracOperator.associativity == OperatorAssociativityLeft)) {
             
-            if  (token.tokenType != CalculatedTokenTypeOperator ||
+            if (token.tokenType != CalculatedTokenTypeOperator ||
                 (token.fracOperator.arity == FractionOperatorArityUnary &&
                  token.fracOperator.associativity == OperatorAssociativityRight)) {
                 
@@ -201,17 +182,14 @@
             }
         }
         
-        if  (needInsertMultiplier) {
-            
+        if (needInsertMultiplier) {
             FractionOperator *multiplyOp;
-        
             multiplyOp = [self.operatorSet operatorForFunction:kOperatorMultiple];
-            
             Token*multiply = [[Token alloc] initWithToken:@"*" type:CalculatedTokenTypeOperator operator:multiplyOp];
-            
             replacements = @[multiply];
         }
     }
+    
     return replacements;
 }
 

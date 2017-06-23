@@ -14,7 +14,6 @@
 @implementation FractionOperator
 
 + (NSArray *)defaultOperators {
-    
     static NSArray *defaultOperators = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -46,10 +45,9 @@
 
 #pragma mark - init
 - (instancetype)initWithOperatorFunction:(NSString *)funcs tokens:(NSArray *)tokens arity:(FractionOperatorArity)arity precedence:(NSInteger)precedence associativity:(FractionOperatorAssociativity)associativity {
- 
     tokens = [tokens valueForKey:@"lowercaseString"];
 
-    if  (self = [super init]) {
+    if (self = [super init]) {
         _arity = arity;
         _associativity = associativity;
         _precedence = precedence;
@@ -62,7 +60,6 @@
 
 #pragma mark - copy
 - (id)copyWithZone:(NSZone *)zone {
-
     FractionOperator *copyOp = [[[self class]allocWithZone:zone]initWithOperatorFunction:_function tokens:_tokens arity:_arity precedence:_precedence associativity:_associativity];
     
     return copyOp;

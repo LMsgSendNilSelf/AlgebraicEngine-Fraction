@@ -30,36 +30,41 @@ static NSString* const kKeyIsNegative  = @"isNegative";
              denominator:(unsigned long long)denominator
                 negative:(BOOL)negative{
     
-    if  (  self = [super init]) {
+    if (self = [super init]) {
         unsigned long long gcd = gcdForUnsignedLongLong(numerator, denominator);
         _numerator = numerator / gcd;
         _denominator = denominator / gcd;
         _isNegative = negative;
     }
+    
     return self;
 }
 
 #pragma mark - math ref
 
 - (id)fractionByAddingFraction:(Fraction*)addend{
-    
     unsigned long long denom1 = [self denominator];
     unsigned long long denom2 = [addend denominator];
     unsigned long long lcm = lcmForUnsignedLongLong(denom1, denom2);
     long long numer1 = [self numerator] * lcm / denom1;
     long long numer2 = [addend numerator] * lcm / denom2;
-    if  ([self isNegative]) {
+   
+    if ([self isNegative]) {
         numer1 *= -1;
     }
-    if  ([addend isNegative]) {
+    
+    if ([addend isNegative]) {
         numer2 *= -1;
     }
+    
     long long numerSum = numer1 + numer2;
     BOOL resultIsNegative = (numerSum < 0);
-    if  (resultIsNegative) {
+   
+    if (resultIsNegative) {
         numerSum *= -1;
         resultIsNegative = YES;
     }
+    
     return [[self class] fractionWithNumerator:numerSum
                                    denominator:lcm
                                       negative:resultIsNegative];
@@ -67,7 +72,6 @@ static NSString* const kKeyIsNegative  = @"isNegative";
 }
 
 - (id)fractionBySubtractingFraction:(Fraction*)subtrahend{
-    
     unsigned long long numer = [subtrahend numerator];
     unsigned long long denom = [subtrahend denominator];
     BOOL isNegative = ! [subtrahend isNegative];
@@ -78,7 +82,6 @@ static NSString* const kKeyIsNegative  = @"isNegative";
 }
 
 - (id)fractionByMultiplyingByFraction:(Fraction*)factor{
-    
     unsigned long long numer1 = [self numerator];
     unsigned long long numer2 = [factor numerator];
     unsigned long long denom1 = [self denominator];
@@ -90,12 +93,13 @@ static NSString* const kKeyIsNegative  = @"isNegative";
 }
 
 - (id)fractionByMultiplyingByLongLong:(long long)factor{
-    
     BOOL isNegative = NO;
-    if  (factor < 0) {
+   
+    if (factor < 0) {
         factor *= -1;
         isNegative = YES;
     }
+    
     Fraction*fracFactor = [[self class] fractionWithNumerator:factor
                                                       denominator:1
                                                          negative:isNegative];
@@ -103,7 +107,6 @@ static NSString* const kKeyIsNegative  = @"isNegative";
 }
 
 - (id)fractionByDividingByFraction:(Fraction*)divisor{
-    
     unsigned long long numer = [divisor numerator];
     NSAssert(numer != 0, @" divide by zero!!!");
     unsigned long long denom = [divisor denominator];
@@ -114,14 +117,15 @@ static NSString* const kKeyIsNegative  = @"isNegative";
     return [self fractionByMultiplyingByFraction:inverseFraction];
 }
 
-- (id)fractionByDividingByLongLong:(long long)divisor
-{
+- (id)fractionByDividingByLongLong:(long long)divisor {
     NSAssert(divisor != 0, @" divide by zero !!!");
     BOOL isNegative = NO;
-    if  (divisor < 0) {
+  
+    if (divisor < 0) {
         divisor *= -1;
         isNegative = YES;
     }
+    
     Fraction*fracDivisor = [[self class] fractionWithNumerator:divisor
                                                        denominator:1
                                                           negative:isNegative];
@@ -131,27 +135,26 @@ static NSString* const kKeyIsNegative  = @"isNegative";
 #pragma mark Equality
 
 - (BOOL)isEqual:(id)object{
-    
-    if  (object == self) {
+    if (object == self) {
         return YES;
     }
-    if  (![object isKindOfClass:[self class]]) {
+    
+    if (![object isKindOfClass:[self class]]) {
         return NO;
     }
+    
     return [self isNegative] == [object isNegative]
     && [self numerator] == [object numerator]
     && [self denominator] == [object denominator];
 }
 
 -(NSString *)description{
-
     return [NSString stringWithFormat:@"%@%llu/%llu",[self isNegative]?@"-":@"",[self numerator],[self denominator]];
 }
 
 #pragma mark NSCopying
 
 - (instancetype)copyWithZone:(NSZone *)zone{
-    
     Fraction*fracCopy = [[Fraction allocWithZone:zone]initWithNumerator:[self numerator] denominator:[self denominator] negative:[self isNegative]];
     
     return fracCopy;
@@ -160,7 +163,6 @@ static NSString* const kKeyIsNegative  = @"isNegative";
 #pragma mark NSCoding
 
 - (nullable instancetype)initWithCoder:(NSCoder *)aDecoder{
-    
     unsigned long long numerator;
     unsigned long long denominator;
     BOOL isNegative;
@@ -175,7 +177,6 @@ static NSString* const kKeyIsNegative  = @"isNegative";
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder{
-    
     [aCoder encodeObject:[NSNumber numberWithUnsignedInteger:self.numerator] forKey:kKeyNumerator];
     [aCoder encodeObject:[NSNumber numberWithUnsignedInteger:self.denominator] forKey:kKeyDenominator];
     [aCoder encodeBool:[self isNegative] forKey:kKeyIsNegative];
@@ -188,23 +189,19 @@ static NSString* const kKeyIsNegative  = @"isNegative";
 @implementation Fraction(Value)
 
 - (float)floatValue {
-    
     return (float)[self doubleValue];
 }
 
 - (double)doubleValue {
-    
     return [[self decimalValue] doubleValue];
 }
 
 - (long long)longLongValue {
-    
     return [[self decimalValue] longLongValue];
 }
 
 - (NSDecimalNumber *)decimalValue {
-    
-    if  ([self numerator] == 0) {
+    if ([self numerator] == 0) {
         return [NSDecimalNumber zero];
     }
     NSDecimalNumber *num = [NSDecimalNumber decimalNumberWithMantissa:[self numerator]

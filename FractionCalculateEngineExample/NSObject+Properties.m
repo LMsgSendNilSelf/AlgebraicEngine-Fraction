@@ -15,10 +15,8 @@
 static NSMutableDictionary *ClassDescriptionCacheMap;
 
 + (void)load {
-
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        
         ClassDescriptionCacheMap = [NSMutableDictionary dictionary];
     });
 }
@@ -30,11 +28,9 @@ static NSMutableDictionary *ClassDescriptionCacheMap;
 
  */
 - (NSString *)description {
-    
     NSString *des = [ClassDescriptionCacheMap objectForKey:[self class]];
     
-    if (nil == des){
-        
+    if (nil == des) {
         NSMutableString *string = [NSMutableString string];
                                     
         [string appendString:NSStringFromClass([self class])];
@@ -43,16 +39,13 @@ static NSMutableDictionary *ClassDescriptionCacheMap;
         NSDictionary *propertydic = [self dictionaryWithProperties];
         
         [propertydic enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-            
             [string appendFormat:@"%@ = %@\n", key, obj];
         }];
         
         [string appendString:@"}"];
         
         des = string;
-        
         NSString *className = NSStringFromClass([self class]);
-        
         [ClassDescriptionCacheMap setValue:des forKey:className];
     }
     
@@ -65,14 +58,12 @@ static NSMutableDictionary *ClassDescriptionCacheMap;
 
  */
 - (NSDictionary *)dictionaryWithProperties {
-    
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
 
     unsigned int ivarsCount = 0;
     Ivar *ivars = class_copyIvarList([self class], &ivarsCount);
     
     for (unsigned int i = 0 ; i<ivarsCount ; i++) {
-       
         NSString *propertyName = [NSString stringWithUTF8String:ivar_getName(ivars[i])];
         //属性名字前面会有@"_"
         propertyName = [propertyName hasPrefix:@"-"] ? [propertyName substringFromIndex:1] : propertyName;
@@ -86,11 +77,9 @@ static NSMutableDictionary *ClassDescriptionCacheMap;
 
 #pragma mark -
 - (BOOL)isSystemClass {
-
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
   
     if ([bundle isEqual: [NSBundle mainBundle]]) {
-       
         NSLog(@"Custom class");
         return NO;
     }

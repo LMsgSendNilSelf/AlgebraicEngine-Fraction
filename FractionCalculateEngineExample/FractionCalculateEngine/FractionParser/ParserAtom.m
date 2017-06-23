@@ -16,10 +16,10 @@
 }
 
 - (instancetype)initWithToken:(Token*)token {
-    
-    if  (self = [super init]) {
+    if (self = [super init]) {
         _token = token;
     }
+    
     return self;
 }
 
@@ -32,31 +32,26 @@
 @implementation ClusterAtom
 
 - (instancetype)initWithToken:(Token*)token {
-    
-    if  (self = [super initWithToken:token]) {
-        
+    if (self = [super initWithToken:token]) {
         _subAtoms = [NSMutableArray array];
     }
+    
     return self;
 }
 
 - (void)addSubatom:(ParserAtom *)atom{
-    
     [_subAtoms addObject:atom];
 }
 
 - (void)setSubAtoms:(NSMutableArray *)subAtoms{
-    
     _subAtoms = [subAtoms mutableCopy];
 }
 
 - (void)replaceAtomsInRange:(NSRange)range withAtom:(ParserAtom *)replacement{
-    
     [_subAtoms replaceObjectsInRange:range withObjectsFromArray:@[replacement]];
 }
 
 - (ParserAtomType)atomType{
-    
     return ParserAtomTypeCluster;
 }
 
@@ -65,13 +60,12 @@
 @implementation FunctionAtom
 
 - (instancetype)initWithToken:(Token*)token {
-    
-    if  ([super initWithToken:token]) {
-        if  (token.tokenType == CalculatedTokenTypeFunction) {
+    if ([super initWithToken:token]) {
+        if (token.tokenType == CalculatedTokenTypeFunction) {
             _functionName = token.token;
-        }else if  (token.tokenType == CalculatedTokenTypeOperator) {
+        } else if (token.tokenType == CalculatedTokenTypeOperator) {
             _functionName = token.fracOperator.function;
-        }else{
+        } else {
             [NSException raise:NSInternalInconsistencyException format:@"Invalid token"];
         }
     }
@@ -79,7 +73,6 @@
 }
 
 - (ParserAtomType)atomType {
-    
     return  ParserAtomTypeFunction;
 }
 
@@ -88,16 +81,14 @@
 @implementation NumberAtom
 
 - (instancetype)initWithToken:(Token*)token {
-    
-    if(self = [super initWithToken:token]){
-
+    if (self = [super initWithToken:token]) {
         self.resolved = YES;
     }
+    
     return self;
 }
 
 - (ParserAtomType)atomType{
-    
     return  ParserAtomTypeNumber;
 }
 
