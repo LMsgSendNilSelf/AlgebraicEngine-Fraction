@@ -20,7 +20,6 @@
 		if (_tokenType == CalculatedTokenTypeOperator) {
             _fracOperator = op;
             _operatorUniqueness = !(op == nil);
-            
 		} else if (_tokenType == CalculatedTokenTypeNumber) {
             _fraction = [self fractionOf:aToken];
         }
@@ -38,7 +37,6 @@
         llNum = [token longLongValue];
         denominator = 1;
         negative = llNum > 0 ? NO : YES;
-        
     } else {
         NSUInteger digitCount = token.length - range.location - 1;
         NSString *newNumStr = [token stringByReplacingOccurrencesOfString:@"." withString:@""];

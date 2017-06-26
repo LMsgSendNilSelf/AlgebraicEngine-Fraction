@@ -24,7 +24,6 @@
 
 - (id)peekNextObject {
     if (_index >= _array.count) {
-        
         return nil;
     }
     

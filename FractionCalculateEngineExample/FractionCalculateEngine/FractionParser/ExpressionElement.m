@@ -89,11 +89,9 @@
         return NO;
     }
 	if ([self expressionType] ==  ExpressionTypeNumber) {
-        
 		return [[self fractionNumber] isEqual:[expression fractionNumber]];
 	}
 	if ([self expressionType] == ExpressionTypeFunction) {
-        
 		return ([[self function] isEqual:[expression function]] &&
 				[[self arguments] isEqual:[expression arguments]]);
 	}

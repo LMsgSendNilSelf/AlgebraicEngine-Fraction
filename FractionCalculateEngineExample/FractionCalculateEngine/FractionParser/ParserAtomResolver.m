@@ -19,7 +19,6 @@
 }
 
 - (instancetype)initWithAtom:(ParserAtom *)atom error:(NSError *__autoreleasing*)error {
-  
     if (self = [super init]) {
         if (![self resolveAtom:atom error:error]) {
             return nil;
@@ -27,6 +26,7 @@
         
         _atom = atom;
     }
+    
     return self;
 }
 

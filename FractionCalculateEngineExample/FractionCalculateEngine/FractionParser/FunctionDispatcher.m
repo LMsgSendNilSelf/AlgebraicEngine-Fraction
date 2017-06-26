@@ -67,6 +67,7 @@ static NSString *const _FunctionSelectorNameSuffix = @":error:";
         
         functions = [methodSet copy];
     });
+    
     return functions;
 }
 
@@ -146,10 +147,11 @@ static NSString *const _FunctionSelectorNameSuffix = @":error:";
     NEED_N_ARGUMENTS(1);
     Fraction*firstValue = [[self evaluator] evaluateExpression:arguments[0] error:error];
     RETURN_NIL_IF_NIL(firstValue);
-
-    return [Fraction fractionWithNumerator:[firstValue numerator]
-                                  denominator:[firstValue denominator]
-                                     negative:![firstValue isNegative]];
+    Fraction *result =[Fraction fractionWithNumerator:[firstValue numerator]
+                                               denominator:[firstValue denominator]
+                                                  negative:![firstValue isNegative]];
+    
+    return [ExpressionElement numberElementWithNumber:result];
 }
 
 @end

@@ -40,6 +40,7 @@
         
         defaultOperators = [operators copy];
     });
+    
     return defaultOperators;
 }
 

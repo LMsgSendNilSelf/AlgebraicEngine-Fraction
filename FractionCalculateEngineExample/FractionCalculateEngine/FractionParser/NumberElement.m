@@ -17,6 +17,7 @@
 	if (self = [super init]) {
 		_fracNumber = frac;
 	}
+    
 	return self;
 }
 

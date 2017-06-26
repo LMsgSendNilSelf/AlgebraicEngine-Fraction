@@ -41,6 +41,7 @@
             return nil;
         }
     }
+    
     return self;
 }
 

@@ -28,7 +28,6 @@
 }
 
 + (instancetype)defaultOperatorSet {
-    
     static FractionOperatorSet *defaultSet = nil;
     static dispatch_once_t onceToken;
     
@@ -39,12 +38,10 @@
 }
 
 - (instancetype)init {
-
     return [self initWithOperators:[FractionOperator defaultOperators]];
 }
 
 - (instancetype)initWithOperators:(NSArray *)operators {
-    
     if (self = [super init]) {
         _orderedOperatorSet = [NSMutableOrderedSet orderedSetWithArray:operators];
         _operatorsByFunction = [NSMutableDictionary dictionary];
@@ -60,7 +57,6 @@
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-    
     FractionOperatorSet *copy = [[[self class]allocWithZone:zone]initWithOperators:_orderedOperatorSet.array];
    
     return  copy;
@@ -88,28 +84,30 @@
 
 - (FractionOperator *)operatorForToken:(NSString *)token arity:(FractionOperatorArity)arity {
     NSArray *operators = [self operatorsForToken:token];
+  
     for(FractionOperator *operator in operators) {
-        if (operator.arity == arity) { return operator; }
+        if (operator.arity == arity) {
+            return operator;
+        }
     }
+    
     return nil;
 }
 
 - (FractionOperator *)operatorForToken:(NSString *)token arity:(FractionOperatorArity)arity associativity:(FractionOperatorAssociativity)associativity {
-    
     NSArray *operators = [self operatorsForToken:token];
     
     for(FractionOperator *operator in operators) {
         if (operator.arity == arity &&
            operator.associativity == associativity) {
-            
             return operator;
         }
     }
+    
     return nil;
 }
 
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(__unsafe_unretained id [])buffer count:(NSUInteger)len {
-    
     return [_orderedOperatorSet countByEnumeratingWithState:state objects:buffer count:len];
 }
 
@@ -125,7 +123,6 @@
 }
 
 - (instancetype)init {
-
     if (self = [super init]) {
         _operatorTokenMap = [NSMutableDictionary dictionary];
         _tokenCharacters = [NSCountedSet set];
@@ -137,7 +134,6 @@
 
 - (void)addOperator:(FractionOperator *)operator {
     [self addTokens:operator.tokens forOperator:operator];
-    
     NSString *tokenCharacters = [_tokenCharacters.allObjects componentsJoinedByString:@""];
     _tokenCharacterSet = [NSCharacterSet characterSetWithCharactersInString:tokenCharacters];
 }

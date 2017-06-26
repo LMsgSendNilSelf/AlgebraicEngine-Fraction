@@ -36,7 +36,7 @@ typedef ExpressionElement* (^FunctionElementBlock)(NSArray *, FractionEvaluator 
 	return _defaultEvaluator;
 }
 
-- (id)init {
+- (instancetype)init {
 	if (self = [super init]) {
         _functionTable = [NSMutableDictionary dictionary];
         _functionEvaluator = [[FunctionDispatcher alloc] initWithFractionEvaluator:self];

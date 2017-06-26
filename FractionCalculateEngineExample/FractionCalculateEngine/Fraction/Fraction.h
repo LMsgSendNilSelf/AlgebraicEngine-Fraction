@@ -16,18 +16,18 @@
 
 //init
 
-+ (id)fractionWithNumerator:(unsigned long long)numerator
++ (instancetype)fractionWithNumerator:(unsigned long long)numerator
                 denominator:(unsigned long long)denominator
                    negative:(BOOL)negative;
 
 //four-fundamental-rules
-- (id)fractionByAddingFraction:(Fraction*)addend;
-- (id)fractionBySubtractingFraction:(Fraction*)subtrahend;
-- (id)fractionByMultiplyingByFraction:(Fraction*)factor;
-- (id)fractionByDividingByFraction:(Fraction*)divisor;
+- (Fraction *)fractionByAddingFraction:(Fraction*)addend;
+- (Fraction *)fractionBySubtractingFraction:(Fraction*)subtrahend;
+- (Fraction *)fractionByMultiplyingByFraction:(Fraction*)factor;
+- (Fraction *)fractionByDividingByFraction:(Fraction*)divisor;
 
-- (id)fractionByMultiplyingByLongLong:(long long)factor;
-- (id)fractionByDividingByLongLong:(long long)divisor;
+- (Fraction *)fractionByMultiplyingByLongLong:(long long)factor;
+- (Fraction *)fractionByDividingByLongLong:(long long)divisor;
 
 @end
 

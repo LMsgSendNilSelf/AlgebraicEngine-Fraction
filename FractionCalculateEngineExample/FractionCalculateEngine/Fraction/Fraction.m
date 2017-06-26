@@ -17,7 +17,7 @@ static NSString* const kKeyIsNegative  = @"isNegative";
 
 #pragma mark -
 
-+ (id)fractionWithNumerator:(unsigned long long)numerator
++ (instancetype)fractionWithNumerator:(unsigned long long)numerator
                 denominator:(unsigned long long)denominator
                    negative:(BOOL)negative{
     
@@ -26,7 +26,7 @@ static NSString* const kKeyIsNegative  = @"isNegative";
                                           negative:negative];
 }
 
-- (id)initWithNumerator:(unsigned long long)numerator
+- (instancetype)initWithNumerator:(unsigned long long)numerator
              denominator:(unsigned long long)denominator
                 negative:(BOOL)negative{
     
@@ -42,7 +42,7 @@ static NSString* const kKeyIsNegative  = @"isNegative";
 
 #pragma mark - math ref
 
-- (id)fractionByAddingFraction:(Fraction*)addend{
+- (Fraction *)fractionByAddingFraction:(Fraction*)addend{
     unsigned long long denom1 = [self denominator];
     unsigned long long denom2 = [addend denominator];
     unsigned long long lcm = lcmForUnsignedLongLong(denom1, denom2);
@@ -71,7 +71,7 @@ static NSString* const kKeyIsNegative  = @"isNegative";
     
 }
 
-- (id)fractionBySubtractingFraction:(Fraction*)subtrahend{
+- (Fraction *)fractionBySubtractingFraction:(Fraction*)subtrahend{
     unsigned long long numer = [subtrahend numerator];
     unsigned long long denom = [subtrahend denominator];
     BOOL isNegative = ! [subtrahend isNegative];
@@ -81,7 +81,7 @@ static NSString* const kKeyIsNegative  = @"isNegative";
     return [self fractionByAddingFraction:negativeFraction];
 }
 
-- (id)fractionByMultiplyingByFraction:(Fraction*)factor{
+- (Fraction *)fractionByMultiplyingByFraction:(Fraction*)factor{
     unsigned long long numer1 = [self numerator];
     unsigned long long numer2 = [factor numerator];
     unsigned long long denom1 = [self denominator];
@@ -92,7 +92,7 @@ static NSString* const kKeyIsNegative  = @"isNegative";
                                       negative:isNegative];
 }
 
-- (id)fractionByMultiplyingByLongLong:(long long)factor{
+- (Fraction *)fractionByMultiplyingByLongLong:(long long)factor{
     BOOL isNegative = NO;
    
     if (factor < 0) {
@@ -106,7 +106,7 @@ static NSString* const kKeyIsNegative  = @"isNegative";
     return [self fractionByMultiplyingByFraction:fracFactor];
 }
 
-- (id)fractionByDividingByFraction:(Fraction*)divisor{
+- (Fraction *)fractionByDividingByFraction:(Fraction*)divisor{
     unsigned long long numer = [divisor numerator];
     NSAssert(numer != 0, @" divide by zero!!!");
     unsigned long long denom = [divisor denominator];
@@ -117,7 +117,7 @@ static NSString* const kKeyIsNegative  = @"isNegative";
     return [self fractionByMultiplyingByFraction:inverseFraction];
 }
 
-- (id)fractionByDividingByLongLong:(long long)divisor {
+- (Fraction *)fractionByDividingByLongLong:(long long)divisor {
     NSAssert(divisor != 0, @" divide by zero !!!");
     BOOL isNegative = NO;
   
@@ -154,7 +154,7 @@ static NSString* const kKeyIsNegative  = @"isNegative";
 
 #pragma mark NSCopying
 
-- (instancetype)copyWithZone:(NSZone *)zone{
+- (id)copyWithZone:(NSZone *)zone{
     Fraction*fracCopy = [[Fraction allocWithZone:zone]initWithNumerator:[self numerator] denominator:[self denominator] negative:[self isNegative]];
     
     return fracCopy;

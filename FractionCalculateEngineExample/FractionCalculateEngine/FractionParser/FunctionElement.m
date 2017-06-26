@@ -23,7 +23,6 @@
 }
 
 - (instancetype)initWithFunction:(NSString *)aFunc arguments:(NSArray *)args error:(NSError *__autoreleasing*)error {
-	
 	if (self = [super init]) {
 		for(id arg in args) {
 			if (![arg isKindOfClass:[ExpressionElement class]]) {
