@@ -15,8 +15,8 @@
 
 @interface FractionTokenInterpreter ()
 
-@property (readonly) FractionTokenizer *tokenizer;
-@property (readonly) FractionOperatorSet *operatorSet;
+@property(readonly) FractionTokenizer *tokenizer;
+@property(readonly) FractionOperatorSet *operatorSet;
 
 @end
 
@@ -45,7 +45,7 @@
     return self;
 }
 
-- (BOOL)interpretTokens:(FractionTokenizer *)tokenizer error:(NSError **)error {
+- (BOOL)interpretTokens:(FractionTokenizer *)tokenizer error:(NSError *__autoreleasing*)error {
     for(Token*token in tokenizer.tokens) {
         NSArray *newTokens = [self tokensForToken:token error:error];
         if (!newTokens) {
@@ -64,7 +64,7 @@
     return YES;
 }
 
-- (NSArray *)tokensForToken:(Token*)token error:(NSError **)error {
+- (NSArray *)tokensForToken:(Token*)token error:(NSError *__autoreleasing*)error {
     Token*lastToken = _tokens.lastObject;
     Token*replacement = token;
     
@@ -98,7 +98,7 @@
     return tokens;
 }
 
-- (Token*)replacementForUnSureOperator:(Token*)token previousToken:(Token*)previous error:(NSError **)error {
+- (Token*)replacementForUnSureOperator:(Token*)token previousToken:(Token*)previous error:(NSError *__autoreleasing*)error {
     if (token.tokenType != CalculatedTokenTypeOperator) {
         return token;
     }
@@ -165,7 +165,7 @@
     return [[Token alloc] initWithToken:token.token type:CalculatedTokenTypeOperator operator:resolvedOperator];
 }
 
-- (NSArray *)insertedTokensForImplicitMultiply:(Token*)token previousToken:(Token*)previous error:(NSError **)error {
+- (NSArray *)insertedTokensForImplicitMultiply:(Token*)token previousToken:(Token*)previous error:(NSError *__autoreleasing*)error {
     NSArray *replacements = [NSArray array];
     
     if (previous && token) {

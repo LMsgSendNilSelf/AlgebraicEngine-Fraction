@@ -17,13 +17,13 @@
 - (instancetype)initWithOperatorFunction:(NSString *)funcs
                         tokens:(NSArray *)tokens
                          arity:(FractionOperatorArity)arity
-                    precedence:(NSInteger)precedence
+                    precedence:(NSUInteger)precedence
                  associativity:(FractionOperatorAssociativity)associativity;
 
-@property (nonatomic, readonly, strong) NSString *function;
-@property (nonatomic, readonly, strong) NSArray *tokens;
-@property (nonatomic, readonly) FractionOperatorArity arity;
-@property (nonatomic, readonly) NSInteger precedence;
-@property (nonatomic, readonly) FractionOperatorAssociativity associativity;
+@property(nonatomic,readonly,strong)NSString *function;
+@property(nonatomic,readonly,strong)NSArray *tokens;
+@property(nonatomic,readonly)FractionOperatorArity arity;
+@property(nonatomic,readonly)NSUInteger precedence;
+@property(nonatomic,readonly)FractionOperatorAssociativity associativity;
 
 @end

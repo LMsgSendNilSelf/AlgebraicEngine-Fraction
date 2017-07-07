@@ -77,7 +77,7 @@
     return _arguments;
 }
 
-- (ExpressionElement *)calculatedExpressionWithEvaluator:(FractionEvaluator *)evaluator error:(NSError **)error {
+- (ExpressionElement *)calculatedExpressionWithEvaluator:(FractionEvaluator *)evaluator error:(NSError *__autoreleasing*)error {
 	BOOL canCalculated = YES;
     NSMutableArray *newSubExps = [NSMutableArray array];
 	

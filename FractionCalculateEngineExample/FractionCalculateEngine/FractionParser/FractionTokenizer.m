@@ -16,10 +16,10 @@
 
 @interface FractionTokenizer ()
 
-- (Token*)nextTokenWithError:(NSError **)error;
-- (Token*)parseNumberTokenWithError:(NSError **)error;
-- (Token*)parseFunctionTokenWithError:(NSError **)error;
-- (Token*)parseOperatorTokenWithError:(NSError **)error;
+- (Token*)nextTokenWithError:(NSError *__autoreleasing*)error;
+- (Token*)parseNumberTokenWithError:(NSError *__autoreleasing*)error;
+- (Token*)parseFunctionTokenWithError:(NSError *__autoreleasing*)error;
+- (Token*)parseOperatorTokenWithError:(NSError *__autoreleasing*)error;
 
 @end
 
@@ -119,7 +119,7 @@
     return token;
 }
 
-- (Token*)parseNumberTokenWithError:(NSError **)error {
+- (Token*)parseNumberTokenWithError:(NSError *__autoreleasing*)error {
     NSUInteger start = _characterIndex;
     Token*token;
     
@@ -153,8 +153,8 @@
     return token;
 }
 
-- (Token*)parseFunctionTokenWithError:(NSError **)error {
-    NSUInteger start = _characterIndex;
+- (Token*)parseFunctionTokenWithError:(NSError *__autoreleasing*)error {
+    NSUInteger start  = _characterIndex;
     NSUInteger length = 0;
     
     NSCharacterSet *operatorChars = self.operatorsSet.operatorCharacters;
@@ -166,7 +166,6 @@
            !isWhitespaceOrNewline &&
            ![operatorChars characterIsMember:peekNextChar]
            ) {
-        
         length++;
         _characterIndex++;
     }
@@ -177,11 +176,11 @@
     }
     
     _characterIndex = start;
-    *error = Math_Error(ErrorCodeUnkownFunction, @"can't not know the so-called function name");
+    *error = Math_Error(ErrorCodeUnkownFunction, @"function name is unknown");
     return nil;
 }
 
-- (Token*)parseOperatorTokenWithError:(NSError **)error {
+- (Token*)parseOperatorTokenWithError:(NSError *__autoreleasing*)error {
     NSUInteger start = _characterIndex;
     NSUInteger length = 1;
     
@@ -195,13 +194,12 @@
         NSString *tmpStr = [NSString stringWithCharacters:(_lowercaseCharacters+start) length:length];
         
         if ([self.operatorsSet hasOperatorWithPrefix:tmpStr]) {
+            NSArray *ops = [self.operatorsSet operatorsOfToken:tmpStr];
             
-            NSArray *operators = [self.operatorsSet operatorsForToken:tmpStr];
-            if (operators.count > 0) {
-                
+            if (ops.count > 0) {
                 lastEffectiveOpStr = tmpStr;
                 lastEffectiveLength = length;
-                lastEffectiveOperator = (operators.count == 1 ? operators.firstObject : nil);
+                lastEffectiveOperator = (ops.count == 1 ? ops.firstObject : nil);
             }
             
             next = [self nextOf:_lowercaseCharacters];

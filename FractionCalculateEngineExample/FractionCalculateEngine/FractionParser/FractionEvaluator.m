@@ -18,7 +18,7 @@
 #import <objc/runtime.h>
 #import "Fraction.h"
 
-typedef ExpressionElement* (^FunctionElementBlock)(NSArray *, FractionEvaluator *, NSError **);
+typedef ExpressionElement* (^FunctionElementBlock)(NSArray *, FractionEvaluator *, NSError *__autoreleasing*);
 
 @implementation FractionEvaluator{
     //function map table
@@ -111,7 +111,7 @@ typedef ExpressionElement* (^FunctionElementBlock)(NSArray *, FractionEvaluator 
     return fracValue;
 }
 
-- (id)evaluateValue:(id)value error:(NSError **)error {
+- (id)evaluateValue:(id)value error:(NSError *__autoreleasing*)error {
     if ([value isKindOfClass:[ExpressionElement class]]) {
         return [self evaluateExpression:value error:error];
     } else if ([value isKindOfClass:[NSString class]]) {
@@ -149,7 +149,7 @@ typedef ExpressionElement* (^FunctionElementBlock)(NSArray *, FractionEvaluator 
         return NO;
     }
     
-    FunctionElementBlock funcBlock = ^ExpressionElement* (NSArray *args, FractionEvaluator *evaluator, NSError **error) {
+    FunctionElementBlock funcBlock = ^ExpressionElement* (NSArray *args, FractionEvaluator *evaluator, NSError *__autoreleasing*error) {
         ExpressionElement *exp = [ExpressionElement functionElementWithFunction:funcName arguments:args error:error];
         Fraction*n = [evaluator evaluateExpression:exp error:error];
         

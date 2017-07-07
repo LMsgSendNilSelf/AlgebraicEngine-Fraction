@@ -13,15 +13,15 @@
 
 @interface FractionOperatorSet : NSObject <NSFastEnumeration, NSCopying>
 
-@property (nonatomic, readonly) NSArray *operators;
-@property (nonatomic, readonly) NSCharacterSet *operatorCharacters;
+@property(nonatomic,readonly)NSArray *operators;
+@property(nonatomic,readonly)NSCharacterSet *operatorCharacters;
 
 + (instancetype)defaultOperatorSet;
 
 - (BOOL)hasOperatorWithPrefix:(NSString *)prefix;
 
 - (FractionOperator *)operatorForFunction:(NSString *)function;
-- (NSArray *)operatorsForToken:(NSString *)token;
+- (NSArray *)operatorsOfToken:(NSString *)token;
 - (FractionOperator *)operatorForToken:(NSString *)token arity:(FractionOperatorArity)arity;
 - (FractionOperator *)operatorForToken:(NSString *)token arity:(FractionOperatorArity)arity associativity:(FractionOperatorAssociativity)associativity;
 

@@ -11,6 +11,6 @@
 #import "Fraction.h"
 @interface NumberElement : ExpressionElement
 
-- (instancetype)initWithFractionNumber:(Fraction*)frac;
+- (instancetype)initWithFractionNumber:(Fraction*)fraction;
 
 @end

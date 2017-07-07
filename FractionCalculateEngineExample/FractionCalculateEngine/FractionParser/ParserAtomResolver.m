@@ -235,7 +235,7 @@
     return [self expressionForAtom:_atom error:error];
 }
 
-- (ExpressionElement *)expressionForAtom:(ParserAtom *)atom error:(NSError **)error {
+- (ExpressionElement *)expressionForAtom:(ParserAtom *)atom error:(NSError *__autoreleasing*)error {
     if (!atom.resolved) {
         [NSException raise:NSInternalInconsistencyException format:@"atom unresolve"];
     }

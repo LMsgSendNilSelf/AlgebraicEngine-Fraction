@@ -10,9 +10,9 @@
 
 @interface Fraction: NSObject <NSCoding, NSCopying>
 
-@property (readonly) unsigned long long numerator;
-@property (readonly) unsigned long long denominator;
-@property (readonly) BOOL isNegative;
+@property(readonly) unsigned long long numerator;
+@property(readonly) unsigned long long denominator;
+@property(readonly) BOOL isNegative;
 
 //init
 

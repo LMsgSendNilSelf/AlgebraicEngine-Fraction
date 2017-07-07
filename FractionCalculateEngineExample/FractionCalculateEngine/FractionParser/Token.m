@@ -21,14 +21,14 @@
             _fracOperator = op;
             _operatorUniqueness = !(op == nil);
 		} else if (_tokenType == CalculatedTokenTypeNumber) {
-            _fraction = [self fractionOf:aToken];
+            _fraction = [self fractionOfToken:aToken];
         }
 	}
     
 	return self;
 }
 
-- (Fraction *)fractionOf:(NSString *)token {
+- (Fraction *)fractionOfToken:(NSString *)token {
     long long llNum,denominator;
     BOOL negative;
     NSRange range = [token rangeOfString:@"."];

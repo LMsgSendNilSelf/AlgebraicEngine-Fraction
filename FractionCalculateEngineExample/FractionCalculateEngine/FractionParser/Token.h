@@ -24,11 +24,11 @@ typedef NS_ENUM(NSInteger, CalculatedTokenType) {
 - (instancetype)initWithToken:(NSString *)aToken type:(CalculatedTokenType)aType operator:(FractionOperator *)op;
 
 /*operator has only one meaning*/
-@property (assign,readonly)BOOL operatorUniqueness;
-@property (nonatomic,readonly)NSString *token;
-@property (nonatomic,readonly)CalculatedTokenType tokenType;
+@property(assign,readonly)BOOL operatorUniqueness;
+@property(nonatomic,readonly)NSString *token;
+@property(nonatomic,readonly)CalculatedTokenType tokenType;
 
-@property (nonatomic,strong)FractionOperator *fracOperator;
-@property (nonatomic,strong)Fraction*fraction;
+@property(nonatomic,strong)FractionOperator *fracOperator;
+@property(nonatomic,strong)Fraction*fraction;
 
 @end

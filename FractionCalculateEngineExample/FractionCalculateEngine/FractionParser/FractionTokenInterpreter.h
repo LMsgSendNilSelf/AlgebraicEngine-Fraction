@@ -12,8 +12,8 @@
 
 @interface FractionTokenInterpreter : NSObject
 
-@property (readonly) NSArray *tokens;
+@property(readonly) NSArray *tokens;
 
-- (instancetype)initWithTokenizer:(FractionTokenizer *)tokenizer error:(NSError **)error;
+- (instancetype)initWithTokenizer:(FractionTokenizer *)tokenizer error:(NSError *__autoreleasing*)error;
 
 @end

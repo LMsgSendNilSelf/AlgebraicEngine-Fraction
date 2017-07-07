@@ -14,7 +14,7 @@
 
 @interface FractionEvaluator : NSObject
 
-@property (nonatomic, strong) FractionOperatorSet *operatorsSet;
+@property(nonatomic, strong) FractionOperatorSet *operatorsSet;
 
 + (instancetype)defaultFractionEvaluator;
 

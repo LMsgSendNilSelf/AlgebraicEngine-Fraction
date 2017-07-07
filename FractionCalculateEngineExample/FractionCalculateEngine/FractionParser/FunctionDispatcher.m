@@ -28,13 +28,11 @@ return nil; \
 } \
 }
 
-typedef ExpressionElement* (*_FunctionDispatchIMP)(id, SEL, NSArray *, NSError **);
+typedef ExpressionElement* (*_FunctionDispatchIMP)(id, SEL, NSArray *, NSError *__autoreleasing*);
 
 static NSString *const _FunctionSelectorNameSuffix = @":error:";
 
 @implementation FunctionDispatcher
-
-@synthesize evaluator=_evaluator;
 
 + (NSOrderedSet *)defaultFunctions{
     static NSOrderedSet *functions = nil;
@@ -100,7 +98,7 @@ static NSString *const _FunctionSelectorNameSuffix = @":error:";
 }
 
 #pragma mark -detail methods
-- (ExpressionElement *)add:(NSArray *)arguments error:(NSError **)error {
+- (ExpressionElement *)add:(NSArray *)arguments error:(NSError *__autoreleasing*)error {
     NEED_N_ARGUMENTS(2);
     Fraction*firstValue = [[self evaluator] evaluateExpression:arguments[0] error:error];
     RETURN_NIL_IF_NIL(firstValue);
@@ -110,7 +108,7 @@ static NSString *const _FunctionSelectorNameSuffix = @":error:";
     return [ExpressionElement numberElementWithNumber:result];
 }
 
-- (ExpressionElement *)subtract:(NSArray *)arguments error:(NSError **)error {
+- (ExpressionElement *)subtract:(NSArray *)arguments error:(NSError *__autoreleasing*)error {
     NEED_N_ARGUMENTS(2);
     Fraction*firstValue = [[self evaluator] evaluateExpression:arguments[0] error:error];
     RETURN_NIL_IF_NIL(firstValue);
@@ -121,7 +119,7 @@ static NSString *const _FunctionSelectorNameSuffix = @":error:";
     return [ExpressionElement numberElementWithNumber:result];
 }
 
-- (ExpressionElement *)multiply:(NSArray *)arguments error:(NSError **)error {
+- (ExpressionElement *)multiply:(NSArray *)arguments error:(NSError *__autoreleasing*)error {
     NEED_N_ARGUMENTS(2);
     Fraction*firstValue = [[self evaluator] evaluateExpression:arguments[0] error:error];
     RETURN_NIL_IF_NIL(firstValue);
@@ -132,7 +130,7 @@ static NSString *const _FunctionSelectorNameSuffix = @":error:";
     return [ExpressionElement numberElementWithNumber:result];
 }
 
-- (ExpressionElement *)divide:(NSArray *)arguments error:(NSError **)error {
+- (ExpressionElement *)divide:(NSArray *)arguments error:(NSError *__autoreleasing*)error {
     NEED_N_ARGUMENTS(2);
     Fraction*firstValue = [[self evaluator] evaluateExpression:arguments[0] error:error];
     RETURN_NIL_IF_NIL(firstValue);
@@ -143,7 +141,7 @@ static NSString *const _FunctionSelectorNameSuffix = @":error:";
     return [ExpressionElement numberElementWithNumber:result];
 }
 
-- (ExpressionElement *)negate:(NSArray *)arguments error:(NSError **)error {
+- (ExpressionElement *)negate:(NSArray *)arguments error:(NSError *__autoreleasing*)error {
     NEED_N_ARGUMENTS(1);
     Fraction*firstValue = [[self evaluator] evaluateExpression:arguments[0] error:error];
     RETURN_NIL_IF_NIL(firstValue);

@@ -26,7 +26,7 @@
     return self;
 }
 
-- (ExpressionElement *)parsedExpressionWithError:(NSError **)error {
+- (ExpressionElement *)parsedExpressionWithError:(NSError *__autoreleasing*)error {
     ClusterAtom *clusterAtom = [[ClusterAtom alloc] init];
     ArrayEnumerator *tokenEnum = [[ArrayEnumerator alloc] initWithArray:_interpreter.tokens];
     
@@ -48,7 +48,7 @@
 
 #pragma mark - atom
 
-- (ParserAtom *)atomWithEnumerator:(ArrayEnumerator *)enumerator error:(NSError **)error {
+- (ParserAtom *)atomWithEnumerator:(ArrayEnumerator *)enumerator error:(NSError *__autoreleasing*)error {
     Token*next = enumerator.nextObject;
     
     if (next) {
@@ -75,7 +75,7 @@
     return nil;
 }
 
-- (FunctionAtom *)functionAtomWithFunction:(Token*)funcToken enumerator:(ArrayEnumerator *)enumerator error:(NSError **)error {
+- (FunctionAtom *)functionAtomWithFunction:(Token*)funcToken enumerator:(ArrayEnumerator *)enumerator error:(NSError *__autoreleasing*)error {
     FunctionAtom *function = [[FunctionAtom alloc] initWithToken:funcToken];
     Token*leftBracket = enumerator.nextObject;
   
@@ -119,7 +119,7 @@
     return function;
 }
 
-- (ClusterAtom *)clusterAtomWithEnumerator:(ArrayEnumerator *)enumerator error:(NSError **)error {
+- (ClusterAtom *)clusterAtomWithEnumerator:(ArrayEnumerator *)enumerator error:(NSError *__autoreleasing*)error {
     ClusterAtom *cluster = [[ClusterAtom alloc] init];
     Token*next = enumerator.peekNextObject;
     

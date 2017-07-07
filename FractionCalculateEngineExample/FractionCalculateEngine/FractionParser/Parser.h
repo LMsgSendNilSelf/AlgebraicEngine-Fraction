@@ -15,6 +15,6 @@
 
 - (instancetype)initWithTokenInterpreter:(FractionTokenInterpreter *)interpreter;
 
-- (ExpressionElement *)parsedExpressionWithError:(NSError **)error;
+- (ExpressionElement *)parsedExpressionWithError:(NSError *__autoreleasing*)error;
 
 @end

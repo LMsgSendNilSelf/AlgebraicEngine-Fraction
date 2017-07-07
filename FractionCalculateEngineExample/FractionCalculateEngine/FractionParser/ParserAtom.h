@@ -23,17 +23,16 @@ typedef NS_ENUM(NSInteger,  ParserAtomType) {
 
 - (instancetype)initWithToken:(Token*)token;
 
-@property (nonatomic,readonly)  ParserAtomType atomType;
-@property (nonatomic,readonly,strong) Token*token;
-@property (nonatomic,assign) BOOL resolved;
-@property (nonatomic, readonly) FractionOperator *fractionOperator;
+@property(nonatomic,readonly)ParserAtomType atomType;
+@property(nonatomic,readonly,strong)Token*token;
+@property(nonatomic,assign)BOOL resolved;
+@property(nonatomic, readonly)FractionOperator *fractionOperator;
 
 @end
 
-
 @interface ClusterAtom :ParserAtom
 
-@property (nonatomic, strong) NSMutableArray *subAtoms;
+@property(nonatomic, strong) NSMutableArray *subAtoms;
 
 - (void)addSubatom:(ParserAtom *)atom;
 - (void)replaceAtomsInRange:(NSRange)range withAtom:(ParserAtom *)replacement;
@@ -42,7 +41,7 @@ typedef NS_ENUM(NSInteger,  ParserAtomType) {
 
 @interface FunctionAtom : ClusterAtom
 
-@property (nonatomic,readonly,strong) NSString *functionName;
+@property(nonatomic,readonly,strong) NSString *functionName;
 
 @end
 

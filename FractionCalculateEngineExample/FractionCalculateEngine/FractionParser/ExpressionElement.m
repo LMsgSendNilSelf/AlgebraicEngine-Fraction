@@ -29,7 +29,7 @@
 	return [[NumberElement alloc] initWithFractionNumber:fractionNumber];
 }
 
-+ (id)functionElementWithFunction:(NSString *)function arguments:(NSArray *)args error:(NSError **)error {
++ (id)functionElementWithFunction:(NSString *)function arguments:(NSArray *)args error:(NSError *__autoreleasing*)error {
 	return [[FunctionElement alloc] initWithFunction:function arguments:args error:error];
 }
 
@@ -48,8 +48,7 @@
     return  ExpressionTypeNumber;
 }
 
-- (ExpressionElement *)calculatedExpressionWithEvaluator:(FractionEvaluator *)evaluator error:(NSError **)error {
-#pragma unused(evaluator, error)
+- (ExpressionElement *)calculatedExpressionWithEvaluator:(FractionEvaluator *)evaluator error:(NSError *__autoreleasing*)error {
 	[NSException raise:NSInvalidArgumentException format:@"%@ must overridden by subclass",NSStringFromSelector(_cmd)];
 	
     return nil;

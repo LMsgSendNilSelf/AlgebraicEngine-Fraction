@@ -12,8 +12,8 @@
 
 @interface FractionTokenizer : NSObject
 
-@property (nonatomic, readonly) FractionOperatorSet *operatorsSet;
-@property (nonatomic, readonly) NSArray *tokens;
+@property(nonatomic,readonly)FractionOperatorSet *operatorsSet;
+@property(nonatomic,readonly)NSArray *tokens;
 
 - (instancetype)initWithString:(NSString *)exp operatorsSet:(FractionOperatorSet *)set error:(NSError *__autoreleasing*)error;
 

@@ -13,9 +13,9 @@
 	Fraction*_fracNumber;
 }
 
-- (instancetype)initWithFractionNumber:(Fraction*)frac {
+- (instancetype)initWithFractionNumber:(Fraction*)fraction {
 	if (self = [super init]) {
-		_fracNumber = frac;
+		_fracNumber = fraction;
 	}
     
 	return self;
@@ -37,7 +37,7 @@
     return  ExpressionTypeNumber;
 }
 
-- (ExpressionElement *)calculatedExpressionWithEvaluator:(FractionEvaluator *)evaluator error:(NSError **)error {
+- (ExpressionElement *)calculatedExpressionWithEvaluator:(FractionEvaluator *)evaluator error:(NSError *__autoreleasing*)error {
 	return self;
 }
 

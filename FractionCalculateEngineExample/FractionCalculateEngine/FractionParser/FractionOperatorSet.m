@@ -11,11 +11,11 @@
 
 @interface FractionOperatorTokenMap : NSObject
 
-@property (nonatomic, readonly) NSCharacterSet *tokenCharacterSet;
+@property(nonatomic, readonly) NSCharacterSet *tokenCharacterSet;
 
 - (void)addOperator:(FractionOperator *)operator;
-- (BOOL)hasOperatorsForPrefix:(NSString *)prefix;
-- (NSArray *)operatorsForToken:(NSString *)token;
+- (BOOL)hasOperatorsOfPrefix:(NSString *)prefix;
+- (NSArray *)operatorsOfToken:(NSString *)token;
 - (void)addTokens:(NSArray *)tokens forOperator:(FractionOperator *)operator;
 
 @end
@@ -71,19 +71,19 @@
 }
 
 - (BOOL)hasOperatorWithPrefix:(NSString *)prefix {
-    return [_operatorsByToken hasOperatorsForPrefix:prefix];
+    return [_operatorsByToken hasOperatorsOfPrefix:prefix];
 }
 
 - (FractionOperator *)operatorForFunction:(NSString *)function {
     return _operatorsByFunction[function];
 }
 
-- (NSArray *)operatorsForToken:(NSString *)token {
-    return [_operatorsByToken operatorsForToken:token];
+- (NSArray *)operatorsOfToken:(NSString *)token {
+    return [_operatorsByToken operatorsOfToken:token];
 }
 
 - (FractionOperator *)operatorForToken:(NSString *)token arity:(FractionOperatorArity)arity {
-    NSArray *operators = [self operatorsForToken:token];
+    NSArray *operators = [self operatorsOfToken:token];
   
     for(FractionOperator *operator in operators) {
         if (operator.arity == arity) {
@@ -95,7 +95,7 @@
 }
 
 - (FractionOperator *)operatorForToken:(NSString *)token arity:(FractionOperatorArity)arity associativity:(FractionOperatorAssociativity)associativity {
-    NSArray *operators = [self operatorsForToken:token];
+    NSArray *operators = [self operatorsOfToken:token];
     
     for(FractionOperator *operator in operators) {
         if (operator.arity == arity &&
@@ -165,7 +165,7 @@
     }
 }
 
-- (BOOL)hasOperatorsForPrefix:(NSString *)prefix {
+- (BOOL)hasOperatorsOfPrefix:(NSString *)prefix {
     NSString *lowercasePrefix = prefix.lowercaseString;
     for(NSString *token in _operatorTokenMap) {
         if ([token hasPrefix:lowercasePrefix]) {
@@ -176,7 +176,7 @@
     return NO;
 }
 
-- (NSArray *)operatorsForToken:(NSString *)token {
+- (NSArray *)operatorsOfToken:(NSString *)token {
     NSMutableOrderedSet *existingOps = _operatorTokenMap[token.lowercaseString];
    
     return existingOps.array.copy;

@@ -620,7 +620,7 @@
 				DEVELOPMENT_TEAM = QG4BM6EL95;
 				INFOPLIST_FILE = FractionCalculateEngineExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = wpstarnice.FractionCalculateEngineExample;
+				PRODUCT_BUNDLE_IDENTIFIER = p.FractionCalculateEngineExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -632,7 +632,7 @@
 				DEVELOPMENT_TEAM = QG4BM6EL95;
 				INFOPLIST_FILE = FractionCalculateEngineExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = wpstarnice.FractionCalculateEngineExample;
+				PRODUCT_BUNDLE_IDENTIFIER = p.FractionCalculateEngineExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -644,7 +644,7 @@
 				DEVELOPMENT_TEAM = QG4BM6EL95;
 				INFOPLIST_FILE = FractionCalculateEngineExampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = wpstarnice.FractionCalculateEngineExampleTests;
+				PRODUCT_BUNDLE_IDENTIFIER = p.FractionCalculateEngineExampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FractionCalculateEngineExample.app/FractionCalculateEngineExample";
 			};
@@ -657,7 +657,7 @@
 				DEVELOPMENT_TEAM = QG4BM6EL95;
 				INFOPLIST_FILE = FractionCalculateEngineExampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = wpstarnice.FractionCalculateEngineExampleTests;
+				PRODUCT_BUNDLE_IDENTIFIER = p.FractionCalculateEngineExampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FractionCalculateEngineExample.app/FractionCalculateEngineExample";
 			};

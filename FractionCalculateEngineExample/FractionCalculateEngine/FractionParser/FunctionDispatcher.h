@@ -17,7 +17,7 @@
 + (BOOL)isAchievedFunction:(NSString *)funcName;
 - (instancetype)initWithFractionEvaluator:(FractionEvaluator *)evaluator;
 
-@property (readonly, weak) FractionEvaluator *evaluator;
+@property(nonatomic, weak)FractionEvaluator *evaluator;
 
 - (ExpressionElement *)evaluateFunction:(FunctionElement *)expression error:(NSError *__autoreleasing*)error;
 
