@@ -1,7 +1,7 @@
 # FractionCalculateEngineExample
 Why to write this engine？
 
-Because I coded a super calculator last year which is in Appstore， the super calculator is based on one more completed parser.
+It comes from I coded a super calculator last year in Appstore， the supercalculator is based on one more completed parser.
 
 This parser is just a simplified prototype. It calculates more than fraction, normal expression as well, so you can expand this library to normal calculation，detail illustration will be added in the near future.
 
