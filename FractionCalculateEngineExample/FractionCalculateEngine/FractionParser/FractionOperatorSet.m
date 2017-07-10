@@ -58,7 +58,6 @@
 
 - (id)copyWithZone:(NSZone *)zone {
     FractionOperatorSet *copy = [[[self class]allocWithZone:zone]initWithOperators:_orderedOperatorSet.array];
-   
     return  copy;
 }
 
@@ -112,6 +111,7 @@
 }
 
 @end
+
 
 @implementation FractionOperatorTokenMap {
    
