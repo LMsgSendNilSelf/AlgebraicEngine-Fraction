@@ -13,8 +13,8 @@
 
 @interface Parser : NSObject
 
-- (instancetype)initWithTokenInterpreter:(FractionTokenInterpreter *)interpreter;
+- (instancetype)initWithOperatorUniquenessInterpreter:(FractionTokenInterpreter *)interpreter;
 
-- (ExpressionElement *)parsedExpressionWithError:(NSError *__autoreleasing*)error;
+- (ExpressionElement *)parseExpressionWithError:(NSError *__autoreleasing*)error;
 
 @end

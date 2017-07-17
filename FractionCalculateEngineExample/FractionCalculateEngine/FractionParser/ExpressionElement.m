@@ -21,8 +21,8 @@
 + (id)expressionFromString:(NSString *)exp error:(NSError *__autoreleasing*)error {
     FractionTokenizer *tokenizer = [[FractionTokenizer alloc] initWithString:exp operatorsSet:nil error:error];
     FractionTokenInterpreter *interpreter = [[FractionTokenInterpreter alloc] initWithTokenizer:tokenizer error:error];
-    Parser *parser = [[Parser alloc] initWithTokenInterpreter:interpreter];
-    return [parser parsedExpressionWithError:error];
+    Parser *parser = [[Parser alloc] initWithOperatorUniquenessInterpreter:interpreter];
+    return [parser parseExpressionWithError:error];
 }
 
 + (id)numberElementWithNumber:(Fraction*)fractionNumber {
@@ -48,7 +48,7 @@
     return  ExpressionTypeNumber;
 }
 
-- (ExpressionElement *)calculatedExpressionWithEvaluator:(FractionEvaluator *)evaluator error:(NSError *__autoreleasing*)error {
+- (ExpressionElement *)calculateExpressionWithEvaluator:(FractionEvaluator *)evaluator error:(NSError *__autoreleasing*)error {
 	[NSException raise:NSInvalidArgumentException format:@"%@ must overridden by subclass",NSStringFromSelector(_cmd)];
 	
     return nil;

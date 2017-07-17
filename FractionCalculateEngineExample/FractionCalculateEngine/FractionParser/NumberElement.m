@@ -37,7 +37,7 @@
     return  ExpressionTypeNumber;
 }
 
-- (ExpressionElement *)calculatedExpressionWithEvaluator:(FractionEvaluator *)evaluator error:(NSError *__autoreleasing*)error {
+- (ExpressionElement *)calculateExpressionWithEvaluator:(FractionEvaluator *)evaluator error:(NSError *__autoreleasing*)error {
 	return self;
 }
 

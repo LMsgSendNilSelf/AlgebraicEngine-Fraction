@@ -68,12 +68,12 @@ typedef ExpressionElement* (^FunctionElementBlock)(NSArray *, FractionEvaluator 
         return nil;
     }
     
-    Parser *parser = [[Parser alloc] initWithTokenInterpreter:interpreter];
+    Parser *parser = [[Parser alloc] initWithOperatorUniquenessInterpreter:interpreter];
     if (!parser) {
         return nil;
     }
     
-    ExpressionElement *expression = [parser parsedExpressionWithError:error];
+    ExpressionElement *expression = [parser parseExpressionWithError:error];
     if (!expression) {
         return nil;
     }

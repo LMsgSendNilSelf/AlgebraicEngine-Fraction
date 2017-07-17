@@ -30,6 +30,6 @@ typedef NS_ENUM(NSInteger, ExpressionElementType) {
 + (id)numberElementWithNumber:(Fraction*)fractionNumber;
 + (id)functionElementWithFunction:(NSString *)function arguments:(NSArray *)args error:(NSError *__autoreleasing*)error;
 
-- (ExpressionElement *)calculatedExpressionWithEvaluator:(FractionEvaluator *)evaluator error:(NSError *__autoreleasing*)error;
+- (ExpressionElement *)calculateExpressionWithEvaluator:(FractionEvaluator *)evaluator error:(NSError *__autoreleasing*)error;
 
 @end

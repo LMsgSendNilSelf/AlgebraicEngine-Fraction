@@ -77,12 +77,12 @@
     return _arguments;
 }
 
-- (ExpressionElement *)calculatedExpressionWithEvaluator:(FractionEvaluator *)evaluator error:(NSError *__autoreleasing*)error {
+- (ExpressionElement *)calculateExpressionWithEvaluator:(FractionEvaluator *)evaluator error:(NSError *__autoreleasing*)error {
 	BOOL canCalculated = YES;
     NSMutableArray *newSubExps = [NSMutableArray array];
 	
     for(ExpressionElement * exp in [self arguments]) {
-		ExpressionElement * calculated = [exp calculatedExpressionWithEvaluator:evaluator error:error];
+		ExpressionElement * calculated = [exp calculateExpressionWithEvaluator:evaluator error:error];
 		if (!canCalculated) {
             return nil;
         }

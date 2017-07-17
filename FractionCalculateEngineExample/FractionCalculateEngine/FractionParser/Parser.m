@@ -19,14 +19,14 @@
     FractionTokenInterpreter *_interpreter;
 }
 
-- (instancetype)initWithTokenInterpreter:(FractionTokenInterpreter *)interpreter {
+- (instancetype)initWithOperatorUniquenessInterpreter:(FractionTokenInterpreter *)interpreter {
     if (self = [super init]) {
         _interpreter = interpreter;
     }
     return self;
 }
 
-- (ExpressionElement *)parsedExpressionWithError:(NSError *__autoreleasing*)error {
+- (ExpressionElement *)parseExpressionWithError:(NSError *__autoreleasing*)error {
     ClusterAtom *clusterAtom = [[ClusterAtom alloc] init];
     ArrayEnumerator *tokenEnum = [[ArrayEnumerator alloc] initWithArray:_interpreter.tokens];
     
