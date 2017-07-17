@@ -121,14 +121,14 @@
             if (previous.fracOperator.associativity == OperatorAssociativityRight) {
                 arity = FractionOperatorArityUnary;
             } else {
-                resolvedOperator = [self.operatorSet operatorForToken:token.token arity:FractionOperatorArityUnary associativity:OperatorAssociativityLeft];
+                resolvedOperator = [self.operatorSet operatorWithToken:token.token arity:FractionOperatorArityUnary associativity:OperatorAssociativityLeft];
                 
                 if (!resolvedOperator ) {
-                    resolvedOperator = [self.operatorSet operatorForToken:token.token arity:FractionOperatorArityBinary];
+                    resolvedOperator = [self.operatorSet operatorWithToken:token.token arity:FractionOperatorArityBinary];
                 }
                 
                 if (!resolvedOperator) {
-                    resolvedOperator = [self.operatorSet operatorForToken:token.token arity:FractionOperatorArityUnary associativity:OperatorAssociativityRight];
+                    resolvedOperator = [self.operatorSet operatorWithToken:token.token arity:FractionOperatorArityUnary associativity:OperatorAssociativityRight];
                 }
             }
         } else {
@@ -137,21 +137,21 @@
             return nil;
         }
     } else if (previous.tokenType == CalculatedTokenTypeNumber) {
-        resolvedOperator = [self.tokenizer.operatorsSet operatorForToken:token.token arity:FractionOperatorArityUnary associativity:OperatorAssociativityLeft];
+        resolvedOperator = [self.tokenizer.operatorsSet operatorWithToken:token.token arity:FractionOperatorArityUnary associativity:OperatorAssociativityLeft];
         
         if (!resolvedOperator) {
-            resolvedOperator = [self.operatorSet operatorForToken:token.token arity:FractionOperatorArityBinary];
+            resolvedOperator = [self.operatorSet operatorWithToken:token.token arity:FractionOperatorArityBinary];
         }
         
         if (!resolvedOperator) {
-            resolvedOperator = [self.operatorSet operatorForToken:token.token arity:FractionOperatorArityUnary associativity:OperatorAssociativityRight];
+            resolvedOperator = [self.operatorSet operatorWithToken:token.token arity:FractionOperatorArityUnary associativity:OperatorAssociativityRight];
         }
     } else {
         arity = FractionOperatorArityBinary;
     }
     
     if (!resolvedOperator) {
-        resolvedOperator = [self.tokenizer.operatorsSet operatorForToken:token.token arity:arity];
+        resolvedOperator = [self.tokenizer.operatorsSet operatorWithToken:token.token arity:arity];
     }
     
     if (!resolvedOperator) {
@@ -174,18 +174,16 @@
         if (previous.tokenType == CalculatedTokenTypeNumber ||
             (previous.fracOperator.arity == FractionOperatorArityUnary &&
              previous.fracOperator.associativity == OperatorAssociativityLeft)) {
-            
             if (token.tokenType != CalculatedTokenTypeOperator ||
                 (token.fracOperator.arity == FractionOperatorArityUnary &&
                  token.fracOperator.associativity == OperatorAssociativityRight)) {
-                
                 needInsertMultiplier = YES;
             }
         }
         
         if (needInsertMultiplier) {
             FractionOperator *multiplyOp;
-            multiplyOp = [self.operatorSet operatorForFunction:kOperatorMultiple];
+            multiplyOp = [self.operatorSet operatorWithFunction:kOperatorMultiple];
             Token*multiply = [[Token alloc] initWithToken:@"*" type:CalculatedTokenTypeOperator operator:multiplyOp];
             replacements = @[multiply];
         }

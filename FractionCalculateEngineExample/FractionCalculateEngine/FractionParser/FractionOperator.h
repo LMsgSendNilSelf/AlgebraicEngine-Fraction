@@ -14,7 +14,7 @@
 
 + (NSArray *)defaultOperators;
 
-- (instancetype)initWithOperatorFunction:(NSString *)funcs
+- (instancetype)initWithOperatorFuncName:(NSString *)funcs
                         tokens:(NSArray *)tokens
                          arity:(FractionOperatorArity)arity
                     precedence:(NSUInteger)precedence

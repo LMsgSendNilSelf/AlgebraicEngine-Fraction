@@ -80,12 +80,12 @@ XCTAssertEqualObjects(_eval, _v, @"%@ should be equal to %@", (_s), _v); \
 
 - (void)testSimpleFractionParsing{
     NSError *error = nil;;
-    NSLog(@"%@", [ExpressionElement expressionFromString:@"((1)/(2))" error:&error]);
-    NSLog(@"%@", [ExpressionElement expressionFromString:@"((-1)/(2))" error:&error]);
-    NSLog(@"%@", [ExpressionElement expressionFromString:@"((-1)/(-2))" error:&error]);
-    NSLog(@"%@", [ExpressionElement expressionFromString:@"((1/1)/(2/1))" error:&error]);
-    NSLog(@"%@", [ExpressionElement expressionFromString:@"((-1/1)/(2/1))" error:&error]);
-    NSLog(@"%@", [ExpressionElement expressionFromString:@"((-1/1)/(-2/1))" error:&error]);
+    NSLog(@"%@", [ExpressionElement expressionOfString:@"((1)/(2))" error:&error]);
+    NSLog(@"%@", [ExpressionElement expressionOfString:@"((-1)/(2))" error:&error]);
+    NSLog(@"%@", [ExpressionElement expressionOfString:@"((-1)/(-2))" error:&error]);
+    NSLog(@"%@", [ExpressionElement expressionOfString:@"((1/1)/(2/1))" error:&error]);
+    NSLog(@"%@", [ExpressionElement expressionOfString:@"((-1/1)/(2/1))" error:&error]);
+    NSLog(@"%@", [ExpressionElement expressionOfString:@"((-1/1)/(-2/1))" error:&error]);
 }
 
 @end

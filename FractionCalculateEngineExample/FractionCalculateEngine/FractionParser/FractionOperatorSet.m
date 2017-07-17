@@ -27,7 +27,7 @@
   
 }
 
-+ (instancetype)defaultOperatorSet {
++ (instancetype)defaultOperatorsSet {
     static FractionOperatorSet *defaultSet = nil;
     static dispatch_once_t onceToken;
     
@@ -69,11 +69,11 @@
     return _operatorsByToken.tokenCharacterSet;
 }
 
-- (BOOL)hasOperatorWithPrefix:(NSString *)prefix {
+- (BOOL)existOperatorWithPrefix:(NSString *)prefix {
     return [_operatorsByToken hasOperatorsOfPrefix:prefix];
 }
 
-- (FractionOperator *)operatorForFunction:(NSString *)function {
+- (FractionOperator *)operatorWithFunction:(NSString *)function {
     return _operatorsByFunction[function];
 }
 
@@ -81,7 +81,7 @@
     return [_operatorsByToken operatorsOfToken:token];
 }
 
-- (FractionOperator *)operatorForToken:(NSString *)token arity:(FractionOperatorArity)arity {
+- (FractionOperator *)operatorWithToken:(NSString *)token arity:(FractionOperatorArity)arity {
     NSArray *operators = [self operatorsOfToken:token];
   
     for(FractionOperator *operator in operators) {
@@ -93,7 +93,7 @@
     return nil;
 }
 
-- (FractionOperator *)operatorForToken:(NSString *)token arity:(FractionOperatorArity)arity associativity:(FractionOperatorAssociativity)associativity {
+- (FractionOperator *)operatorWithToken:(NSString *)token arity:(FractionOperatorArity)arity associativity:(FractionOperatorAssociativity)associativity {
     NSArray *operators = [self operatorsOfToken:token];
     
     for(FractionOperator *operator in operators) {
@@ -102,7 +102,6 @@
             return operator;
         }
     }
-    
     return nil;
 }
 
@@ -118,7 +117,6 @@
     NSMutableDictionary *_operatorTokenMap;
     NSCountedSet *_tokenCharacters;
     NSCharacterSet *_allowTokenCharacters;
-    
     NSCharacterSet *_tokenCharacterSet;
 }
 
@@ -172,13 +170,11 @@
             return YES;
         }
     }
-    
     return NO;
 }
 
 - (NSArray *)operatorsOfToken:(NSString *)token {
     NSMutableOrderedSet *existingOps = _operatorTokenMap[token.lowercaseString];
-   
     return existingOps.array.copy;
 }
 

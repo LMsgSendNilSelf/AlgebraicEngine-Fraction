@@ -35,7 +35,6 @@
     if (self = [super initWithToken:token]) {
         _subAtoms = [NSMutableArray array];
     }
-    
     return self;
 }
 
@@ -84,7 +83,6 @@
     if (self = [super initWithToken:token]) {
         self.resolved = YES;
     }
-    
     return self;
 }
 

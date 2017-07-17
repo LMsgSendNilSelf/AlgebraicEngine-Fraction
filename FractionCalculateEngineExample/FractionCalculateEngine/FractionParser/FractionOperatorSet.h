@@ -16,13 +16,13 @@
 @property(nonatomic,readonly)NSArray *operators;
 @property(nonatomic,readonly)NSCharacterSet *operatorCharacters;
 
-+ (instancetype)defaultOperatorSet;
++ (instancetype)defaultOperatorsSet;
 
-- (BOOL)hasOperatorWithPrefix:(NSString *)prefix;
+- (BOOL)existOperatorWithPrefix:(NSString *)prefix;
 
-- (FractionOperator *)operatorForFunction:(NSString *)function;
+- (FractionOperator *)operatorWithFunction:(NSString *)function;
 - (NSArray *)operatorsOfToken:(NSString *)token;
-- (FractionOperator *)operatorForToken:(NSString *)token arity:(FractionOperatorArity)arity;
-- (FractionOperator *)operatorForToken:(NSString *)token arity:(FractionOperatorArity)arity associativity:(FractionOperatorAssociativity)associativity;
+- (FractionOperator *)operatorWithToken:(NSString *)token arity:(FractionOperatorArity)arity;
+- (FractionOperator *)operatorWithToken:(NSString *)token arity:(FractionOperatorArity)arity associativity:(FractionOperatorAssociativity)associativity;
 
 @end

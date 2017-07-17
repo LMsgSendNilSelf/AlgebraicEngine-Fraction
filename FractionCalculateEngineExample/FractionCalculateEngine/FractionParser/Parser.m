@@ -55,7 +55,6 @@
         ParserAtom *atom;
         if (next.tokenType == CalculatedTokenTypeNumber) {
             atom = [[NumberAtom alloc] initWithToken:next];
-            
         } else if (next.tokenType == CalculatedTokenTypeOperator) {
             if (next.fracOperator.function == kOperatorLeftBracket) {
                 atom = [self clusterAtomWithEnumerator:enumerator error:error];

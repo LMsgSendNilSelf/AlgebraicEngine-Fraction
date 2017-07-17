@@ -35,7 +35,7 @@
         if (set) {
             _operatorsSet = set;
         } else {
-            _operatorsSet = [FractionOperatorSet defaultOperatorSet];
+            _operatorsSet = [FractionOperatorSet defaultOperatorsSet];
         }
         
         _length = [exp length];
@@ -193,7 +193,7 @@
     while (next != '\0') {
         NSString *tmpStr = [NSString stringWithCharacters:(_lowercaseCharacters+start) length:length];
         
-        if ([self.operatorsSet hasOperatorWithPrefix:tmpStr]) {
+        if ([self.operatorsSet existOperatorWithPrefix:tmpStr]) {
             NSArray *ops = [self.operatorsSet operatorsOfToken:tmpStr];
             
             if (ops.count > 0) {

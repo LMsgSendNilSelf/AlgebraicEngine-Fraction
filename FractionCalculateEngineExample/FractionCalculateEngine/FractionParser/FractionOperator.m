@@ -9,7 +9,7 @@
 #import "FractionOperator.h"
 #import "FractionOperatorSet.h"
 
-#define CALCULATOR_OPERATOR_INIT(_function, _tokens, _arity, _precedence, _assocciativity) [[FractionOperator alloc] initWithOperatorFunction:(_function) tokens:(_tokens) arity:(_arity) precedence:(_precedence) associativity:(_assocciativity)]
+#define CALCULATOR_OPERATOR_INIT(_function, _tokens, _arity, _precedence, _assocciativity) [[FractionOperator alloc] initWithOperatorFuncName:(_function) tokens:(_tokens) arity:(_arity) precedence:(_precedence) associativity:(_assocciativity)]
 
 @implementation FractionOperator
 
@@ -45,9 +45,8 @@
 }
 
 #pragma mark - init
-- (instancetype)initWithOperatorFunction:(NSString *)funcs tokens:(NSArray *)tokens arity:(FractionOperatorArity)arity precedence:(NSUInteger)precedence associativity:(FractionOperatorAssociativity)associativity {
+- (instancetype)initWithOperatorFuncName:(NSString *)funcs tokens:(NSArray *)tokens arity:(FractionOperatorArity)arity precedence:(NSUInteger)precedence associativity:(FractionOperatorAssociativity)associativity {
     tokens = [tokens valueForKey:@"lowercaseString"];
-
     if (self = [super init]) {
         _arity = arity;
         _associativity = associativity;
@@ -55,14 +54,12 @@
         _tokens = tokens;
         _function = funcs;
     }
-    
     return self;
 }
 
 #pragma mark - copy
 - (id)copyWithZone:(NSZone *)zone {
-    FractionOperator *copyOp = [[[self class]allocWithZone:zone]initWithOperatorFunction:_function tokens:_tokens arity:_arity precedence:_precedence associativity:_associativity];
-    
+    FractionOperator *copyOp = [[[self class]allocWithZone:zone]initWithOperatorFuncName:_function tokens:_tokens arity:_arity precedence:_precedence associativity:_associativity];
     return copyOp;
 }
 

@@ -24,7 +24,6 @@
             _fraction = [self fractionOfToken:aToken];
         }
 	}
-    
 	return self;
 }
 
@@ -44,7 +43,6 @@
         denominator = pow(10, digitCount);
         negative = llNum > 0 ? NO : YES;
     }
-    
     return [Fraction fractionWithNumerator:llabs(llNum) denominator:1 negative:negative];
 }
 

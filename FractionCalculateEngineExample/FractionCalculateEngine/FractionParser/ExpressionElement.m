@@ -18,7 +18,7 @@
 
 @implementation ExpressionElement
 
-+ (id)expressionFromString:(NSString *)exp error:(NSError *__autoreleasing*)error {
++ (id)expressionOfString:(NSString *)exp error:(NSError *__autoreleasing*)error {
     FractionTokenizer *tokenizer = [[FractionTokenizer alloc] initWithString:exp operatorsSet:nil error:error];
     FractionTokenInterpreter *interpreter = [[FractionTokenInterpreter alloc] initWithTokenizer:tokenizer error:error];
     Parser *parser = [[Parser alloc] initWithOperatorUniquenessInterpreter:interpreter];
@@ -38,13 +38,11 @@
 
 - (id)copyWithZone:(NSZone *)zone {
 	[NSException raise:NSInternalInconsistencyException format:@"%@ must overridden by subclass", NSStringFromSelector(_cmd)];
-   
     return nil;
 }
 
 - (ExpressionElementType)expressionType {
 	[NSException raise:NSInternalInconsistencyException format:@"%@ must overridden by subclass",  NSStringFromSelector(_cmd)];
-	
     return  ExpressionTypeNumber;
 }
 

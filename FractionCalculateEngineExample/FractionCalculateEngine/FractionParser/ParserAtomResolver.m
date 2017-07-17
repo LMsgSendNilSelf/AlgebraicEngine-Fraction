@@ -77,7 +77,6 @@
             if (error) {
                 *error = Math_Error(ErrorCodeUnableParseFormat, @"format could not parse: %@", atom);
             }
-            
             return NO;
         }
         
@@ -92,7 +91,7 @@
         }
         
         //  have the index for the next operator
-        if (![self reduceOperator:opIndex inCluster:atom error:error]) {
+        if (![self reduceArityOperator:opIndex inCluster:atom error:error]) {
             return NO;
         }
     }
@@ -128,13 +127,13 @@
     return set;
 }
 
-- (BOOL)reduceOperator:(NSUInteger)opIndex inCluster:(ClusterAtom *)cluster error:(NSError *__autoreleasing*)error {
+- (BOOL)reduceArityOperator:(NSUInteger)opIndex inCluster:(ClusterAtom *)cluster error:(NSError *__autoreleasing*)error {
     ParserAtom *opAtom = cluster.subAtoms[opIndex];
     
     if (opAtom.fractionOperator.arity == FractionOperatorArityBinary) {
-        return [self reduceBinaryOperator:opIndex inCluster:cluster error:error];
+        return [self reduceArityBinaryOperator:opIndex inCluster:cluster error:error];
     } else if (opAtom.fractionOperator.arity == FractionOperatorArityUnary) {
-        return [self reduceUnaryOperator:opIndex inCluster:cluster error:error];
+        return [self reduceArityUnaryOperator:opIndex inCluster:cluster error:error];
     } else {
         *error = Math_Error(ErrorCodeUnkownOperatorArgumentCount, @"unknown argument count of operator: %@", opAtom);
     
@@ -142,7 +141,7 @@
     }
 }
 
-- (BOOL)reduceBinaryOperator:(NSUInteger)opIndex inCluster:(ClusterAtom *)cluster error:(NSError *__autoreleasing*)error {
+- (BOOL)reduceArityBinaryOperator:(NSUInteger)opIndex inCluster:(ClusterAtom *)cluster error:(NSError *__autoreleasing*)error {
     ParserAtom *atom = cluster.subAtoms[opIndex];
     
     if (opIndex == 0) {
@@ -181,7 +180,7 @@
     return YES;
 }
 
-- (BOOL)reduceUnaryOperator:(NSUInteger)operatorIndex inCluster:(ClusterAtom *)cluster error:(NSError *__autoreleasing*)error {
+- (BOOL)reduceArityUnaryOperator:(NSUInteger)operatorIndex inCluster:(ClusterAtom *)cluster error:(NSError *__autoreleasing*)error {
     ParserAtom *atom = cluster.subAtoms[operatorIndex];
     FractionOperatorAssociativity associativity = atom.fractionOperator.associativity;
     NSRange replacementRange;

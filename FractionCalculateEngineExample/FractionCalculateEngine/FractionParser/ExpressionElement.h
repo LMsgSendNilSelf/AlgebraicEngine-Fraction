@@ -26,7 +26,7 @@ typedef NS_ENUM(NSInteger, ExpressionElementType) {
 
 - (ExpressionElementType)expressionType;
 
-+ (id)expressionFromString:(NSString *)exp error:(NSError *__autoreleasing*)error;
++ (id)expressionOfString:(NSString *)exp error:(NSError *__autoreleasing*)error;
 + (id)numberElementWithNumber:(Fraction*)fractionNumber;
 + (id)functionElementWithFunction:(NSString *)function arguments:(NSArray *)args error:(NSError *__autoreleasing*)error;
 
