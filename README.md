@@ -1,9 +1,9 @@
 # FractionCalculateEngineExample
-Why to write this engine？
+Why write this engine？
 
-It comes from I coded a super calculator last year in Appstore， the supercalculator is based on one more completed parser.
+The reason is I coded a supercalculator last year in Appstore, which is based on one more completed parser.
 
-This parser is just a simplified prototype. It calculates more than fraction, normal expression as well, so you can expand this library to normal calculation，detail illustration will be added in the near future.
+This parser is just a simplified prototype. It calculates not only fraction but normal expression, so you can enrich this library in normal calculation. Detail illustration will be added in the near future.
 
 Parser Theory : Gradient descent
 
@@ -17,7 +17,7 @@ For example：1+2*（3-4） parsing process：
 Tokens：1, +,  2, *, (,  3,  -,  4,  ）
 
 2. Interpreter：
-  Indicate the vague tokens，such as  '+' means add or positive ，so is 'negative'.
+  Specify the vague tokens，i.e '+' means add or positive ，the same as '-'.
  
 3. Parser
 <p align="center" >
@@ -29,18 +29,18 @@ AST(抽象树)：
   <img src="https://github.com/LMsgSendNilSelf/FractionCalculateEngineExample/blob/master/%E7%B4%A0%E6%9D%90/ast.png" alt="抽象树" title="AST">
 </p>
 
-In fact, the math expression is parsed into one custom nested cluster in code，and then resolve each level group sub expression from inside to outside.
+In fact, the math expression is parsed into one custom nested cluster in coding，and then resolve sub-expression on each level from inside to outside one.
 
 ------------------------------------------------------------------------
 Tips：
 
-1. adjust number  ,which is  regarded as fraction through process，such as
+1. adjust number, which is regarded as fraction through process，such as
   
 	2 convert to 2/1 ;
 	0.2 convert to 2/10;
 	0.9998 convert to 9998/10000
 
-2. because of object-c without function operator,we need convert operators,such as @"+", to function name,such as "add"
+2. because of object-c without function operator,we need to convert operators to function name, i.e @"+" to "add"
 
 Todo ：
 
