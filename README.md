@@ -1,4 +1,4 @@
-# FractionCalculateEngineExample
+# Algebraic Engine (Fraction)
 Why write this engine？
 
 The reason is I coded a supercalculator last year in Appstore, which is based on one more completed parser.
