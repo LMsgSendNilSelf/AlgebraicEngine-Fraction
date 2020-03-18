@@ -5,8 +5,6 @@ The reason is I coded a supercalculator last year in Appstore, which is based on
 
 This parser is just a simplified prototype. It calculates not only fraction but normal expression, so you can enrich this library in normal calculation. Detail illustration will be added in the near future.
 
-Parser Theory : Gradient descent
-
 Parser Process:
 <p align="center" >
   <img src="https://github.com/LMsgSendNilSelf/FractionCalculateEngineExample/blob/master/%E7%B4%A0%E6%9D%90/%E6%B5%81%E7%A8%8B.png" alt="解析流程" title="解析流程">
@@ -42,11 +40,7 @@ Tips：
 
 2. because of object-c without function operator,we need to convert operators to function name, i.e @"+" to "add"
 
-Todo ：
+Todo ：processing more symbol
 
-1 processing，
 
-2 demo，
-
-3 more test
 
